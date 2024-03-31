@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
         this.repository = repository;
     }
 
+    @Override
     public UserDto createUser(UserDto userDto) {
         User user = UserMapper.INSTANCE.toUser(userDto);
         log.info("Создание пользователя - {}", user);
