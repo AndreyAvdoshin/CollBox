@@ -9,9 +9,10 @@ import java.time.LocalDateTime;
 @Setter
 @Builder
 @Entity
-@Table(name = "transfers")
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "transfers")
 public class Transfer extends BaseEntity {
 
     @ManyToOne

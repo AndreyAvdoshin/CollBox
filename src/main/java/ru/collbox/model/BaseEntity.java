@@ -27,7 +27,7 @@ public class BaseEntity {
             return false;
         }
         BaseEntity otherObject = (BaseEntity) o;
-        return id != null && id.equals(otherObject.getId());
+        return id != null && id.equals(otherObject.id);
     }
 
     @Override

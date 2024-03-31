@@ -7,9 +7,10 @@ import lombok.*;
 @Setter
 @Builder
 @Entity
-@Table(name = "accounts")
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "accounts")
 public class Account extends BaseEntity {
 
     @ManyToOne
