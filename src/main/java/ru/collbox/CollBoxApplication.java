@@ -9,5 +9,4 @@ public class CollBoxApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CollBoxApplication.class, args);
 	}
-
 }
