@@ -2,10 +2,11 @@ package ru.collbox.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @Entity
 @ToString
 @AllArgsConstructor

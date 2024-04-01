@@ -21,6 +21,6 @@ public class TransactionController {
     @PostMapping
     public TransactionDto createTransaction(@RequestBody TransactionDto transactionDto) {
         log.info("Запрос создания транзакции - {}", transactionDto);
-        return null;//service.createTransaction(transactionDto);
+        return service.createTransaction(transactionDto);
     }
 }

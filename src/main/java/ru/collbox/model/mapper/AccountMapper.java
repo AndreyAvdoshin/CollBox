@@ -1,17 +1,17 @@
 package ru.collbox.model.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 import ru.collbox.dto.AccountDto;
 import ru.collbox.model.Account;
 
-@Mapper
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AccountMapper {
-    AccountMapper INSTANCE = Mappers.getMapper(AccountMapper.class);
 
-    //@Mapping(target = "user.id", source = "accountDto.userId")
+    @Mapping(target = "user.id", source = "userId")
     Account toAccount(AccountDto accountDto);
 
-    //@Mapping(target = "userId", source = "account.user.id")
+    @Mapping(target = "userId", source = "account.user.id")
     AccountDto toAccountDto(Account account);
 }

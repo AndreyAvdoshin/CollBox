@@ -2,10 +2,7 @@ package ru.collbox.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.CategoryDto;
 import ru.collbox.service.CategoryService;
 
@@ -19,8 +16,8 @@ public class CategoryController {
         this.service = service;
     }
 
-    @PostMapping
-    public CategoryDto createCategory(@Valid @RequestBody CategoryDto categoryDto){
+    @PostMapping("/{userId}")
+    public CategoryDto createCategory(@Valid @RequestBody CategoryDto categoryDto,@PathVariable Long userId){
         log.info("Запрос создания категори - {}", categoryDto);
         return service.createCategory(categoryDto);
     }

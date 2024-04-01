@@ -2,12 +2,13 @@ package ru.collbox.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @Entity
 @ToString
 @NoArgsConstructor
