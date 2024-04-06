@@ -10,6 +10,9 @@ import ru.collbox.model.mapper.AccountMapper;
 import ru.collbox.repository.AccountRepository;
 import ru.collbox.repository.UserRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @Slf4j
 @Transactional(readOnly = true)
@@ -21,15 +24,43 @@ public class AccountServiceImpl implements AccountService{
 
     @Transactional
     @Override
-    public AccountDto createAccount(AccountDto accountDto){
+    public AccountDto createAccount(AccountDto accountDto, Long userId){
+        Account checkTitle = repository.findByUser_IdAndTitle(userId, accountDto.getTitle());
+        if (checkTitle != null){
+            throw new RuntimeException(String.format("Account с таким же именем %s, уже существует!", checkTitle.getTitle()));
+        }
+
         Account account = mapper.toAccount(accountDto);
-        //Account account = new Account();
-        account.setUser(userRepository.findById(accountDto.getUserId()).get());
-        //account.setTitle(accountDto.getTitle());
-        //account.setBalance(accountDto.getBalance());
+        account.setUser(userRepository.findById(userId).get());
 
         log.info("Создание счёта - {}", account);
         account = repository.save(account);
         return mapper.toAccountDto(account);
+    }
+
+    @Transactional
+    @Override
+    public AccountDto updateAccount(AccountDto accountDto, Long userId, Long accId){
+        Account checkTitle = repository.findByUser_IdAndTitle(userId, accountDto.getTitle());
+        if (checkTitle != null){
+            throw new RuntimeException(String.format("Account с таким же именем %s, уже существует!", checkTitle.getTitle()));
+        }
+
+        Account account = repository.findByIdAndUser_Id(accId, userId);
+        if(account == null){
+            throw new RuntimeException(String.format("Account с таким id {} и пользователем {} не существует!", accId, userId ));
+        }
+        account = mapper.updateAccount(account, accountDto);
+        log.info("Обновление счёта - {}", account);
+        account = repository.save(account);
+        return mapper.toAccountDto(account);
+    }
+
+    @Override
+    public List<AccountDto> getAccountsByIdUser(Long userId){
+        List<Account> accounts = repository.findAllByUser_Id(userId);
+        return accounts.stream()
+                .map(mapper::toAccountDto)
+                .collect(Collectors.toList());
     }
 }

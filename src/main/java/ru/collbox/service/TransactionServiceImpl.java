@@ -1,6 +1,5 @@
 package ru.collbox.service;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,9 +26,9 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Transactional
     @Override
-    public TransactionDto createTransaction(TransactionDto transactionDto) {
+    public TransactionDto createTransaction(TransactionDto transactionDto, Long userId) {
         Transaction transaction = mapper.toTransaction(transactionDto);
-        transaction.setUser(userRepository.findById(transactionDto.getUser()).get());
+        transaction.setUser(userRepository.findById(userId).get());
         transaction.setCategory(categoryRepository.findById(transactionDto.getCategory()).get());
         transaction.setAccount(accountRepository.findById(transactionDto.getAccount()).get());
         log.info("Создание транзакции - {}", transaction);

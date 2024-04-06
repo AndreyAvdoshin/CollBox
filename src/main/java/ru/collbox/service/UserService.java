@@ -9,4 +9,6 @@ public interface UserService {
     void deleteUser(long userId);
 
     UserDto getByIdUser(long userId);
+
+    UserDto updateUser(UserDto userDto, long userId) throws Exception;
 }

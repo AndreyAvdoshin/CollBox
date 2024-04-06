@@ -16,12 +16,9 @@ import java.util.Set;
 @Table(name = "categories")
 public class Category extends BaseEntity {
 
-    @ManyToMany
-    @JoinTable(name = "users_categories",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "categories_id")})
-    @Column(name = "user_id")
-    private Set<User> user;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(name = "title")
     private String title;
