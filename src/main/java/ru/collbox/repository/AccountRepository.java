@@ -7,9 +7,12 @@ import ru.collbox.model.Category;
 import java.util.List;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
+
     Account findByUser_IdAndTitle (Long userId, String title);
 
-    Account findByIdAndUser_Id(Long accId, Long userId);
+    Account findAccountByUserIdAndTitle (Long userId, String title);
 
-    List<Account> findAllByUser_Id(Long userId);
+    Account findByIdAndUserId(Long accId, Long userId);
+
+    List<Account> findAllByUserId(Long userId);
 }

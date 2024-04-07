@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.dto.UserDto;
+import ru.collbox.exception.NotFoundException;
 import ru.collbox.model.User;
 import ru.collbox.model.mapper.UserMapper;
 import ru.collbox.repository.UserRepository;
@@ -32,9 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserDto updateUser(UserDto userDto, long userId){
-        User user = repository.findById(userId)
-                .orElseThrow(() -> new RuntimeException(String.format("User по id = %s, не существует!", userId)));
+    public UserDto updateUser(UserDto userDto, Long userId) {
+        User user = returnIfExists(userId);
 
         user = mapper.updateUser(user, userDto);
         log.info("Обновление пользователя - {}", user);
@@ -44,16 +44,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getByIdUser(long userId) {
+    public UserDto getByIdUser(Long userId) {
         log.info("Получение пользователя по инидификатору userId = {}", userId);
-        User user = repository.findById(userId).get();
+        User user = returnIfExists(userId);
         return mapper.toUserDto(user);
     }
 
     @Transactional
     @Override
-    public void deleteUser(long userId) {
+    public void deleteUser(Long userId) {
         log.info("Удаление пользователя по инидификатору userId = {}", userId);
-        repository.deleteById(userId);
+        User user = returnIfExists(userId);
+        repository.delete(user);
+    }
+
+    @Override
+    public User returnIfExists(Long userId) {
+        return repository.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User", userId));
     }
 }

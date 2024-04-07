@@ -1,6 +1,7 @@
 package ru.collbox.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,28 +22,28 @@ public class UserController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public UserDto createUser(@RequestBody @Valid UserDto userDto) {
         log.info("Запрос создания пользователя - {}", userDto);
         return service.createUser(userDto);
     }
 
-    @SneakyThrows
     @PatchMapping("/{userId}")
-    public UserDto updateUser(@RequestBody UserDto userDto,
-                              @PathVariable long userId) {
+    public UserDto updateUser(@RequestBody @Valid UserDto userDto,
+                              @PathVariable @Positive Long userId) {
         log.info("Запрос обновления пользователя updateUser userDto {}, userId {}", userDto, userId);
         return service.updateUser(userDto, userId);
     }
 
     @GetMapping("/{userId}")
-    public UserDto getByIdUser(@PathVariable long userId) {
+    public UserDto getByIdUser(@PathVariable @Positive Long userId) {
         log.info("Запрос получение пользователя по индикатору userId = {}", userId);
         return service.getByIdUser(userId);
     }
 
     @DeleteMapping("/{userId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteUser(@PathVariable long userId) {
+    public void deleteUser(@PathVariable @Positive Long userId) {
         log.info("Запрос удаления пользователя по индикатору userId = {}", userId);
         service.deleteUser(userId);
     }
