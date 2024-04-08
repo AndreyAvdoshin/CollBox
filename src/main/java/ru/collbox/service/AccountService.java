@@ -10,4 +10,6 @@ public interface AccountService {
     AccountDto updateAccount(AccountDto accountDto, Long userId, Long accId);
 
     List<AccountDto> getAccountsByIdUser(Long userId);
+
+    AccountDto getAccountById(Long userId, Long accId);
 }

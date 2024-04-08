@@ -6,10 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.dto.AccountDto;
 import ru.collbox.exception.NotFoundException;
 import ru.collbox.model.Account;
-import ru.collbox.model.User;
 import ru.collbox.model.mapper.AccountMapper;
 import ru.collbox.repository.AccountRepository;
-import ru.collbox.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,17 +40,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public AccountDto updateAccount(AccountDto accountDto, Long userId, Long accId){
-        Account checkTitle = repository.findAccountByUserIdAndTitle(userId, accountDto.getTitle());
-        if (checkTitle != null) {
-            throw new RuntimeException(String.format("Account с таким же именем %s, уже существует!", checkTitle.getTitle()));
-        }
+    public AccountDto updateAccount(AccountDto accountDto, Long userId, Long accId) {
+        Account account = returnIfExists(userId, accId);
 
-        Account account = repository.findByIdAndUserId(accId, userId);
-        if(account == null) {
-            throw new RuntimeException(String.format("Account с таким id %d и пользователем %d не существует!",
-                    accId, userId ));
-        }
         account = mapper.updateAccount(account, accountDto);
         log.info("Обновление счёта - {}", account);
         account = repository.save(account);
@@ -60,11 +50,24 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<AccountDto> getAccountsByIdUser(Long userId){
+    public AccountDto getAccountById(Long userId, Long accId) {
+        Account account = returnIfExists(userId, accId);
+
+        log.info("Получение кошелька - {}", account);
+        return mapper.toAccountDto(account);
+    }
+
+    @Override
+    public List<AccountDto> getAccountsByIdUser(Long userId) {
         List<Account> accounts = repository.findAllByUserId(userId);
         return accounts.stream()
                 .map(mapper::toAccountDto)
                 .collect(Collectors.toList());
+    }
+
+    public Account returnIfExists(Long userId, Long accId) {
+        return repository.findByIdAndUserId(accId, userId)
+                .orElseThrow(() -> new NotFoundException("Account", accId));
     }
 
 }

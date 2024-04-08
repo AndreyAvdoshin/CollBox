@@ -4,10 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.dto.CategoryDto;
+import ru.collbox.exception.NotFoundException;
 import ru.collbox.model.Category;
 import ru.collbox.model.mapper.CategoryMapper;
 import ru.collbox.repository.CategoryRepository;
-import ru.collbox.repository.UserRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,28 +15,23 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 @Transactional(readOnly = true)
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository repository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final CategoryMapper mapper;
 
-    public CategoryServiceImpl(CategoryRepository repository, UserRepository userRepository, CategoryMapper mapper) {
+    public CategoryServiceImpl(CategoryRepository repository, UserService userService, CategoryMapper mapper) {
         this.repository = repository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
     @Transactional
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto, Long userId) {
-        //проверка категории на дублирование имени
-        Category checkTitle = repository.findByUser_IdAndTitle(userId, categoryDto.getTitle());
-        if(checkTitle != null){
-            throw new RuntimeException(String.format("Category с таким же именем %s, уже существует!", checkTitle.getTitle()));
-        }
 
         Category category = mapper.toCategory(categoryDto, userId);
-        category.setUser(userRepository.findById(userId).get());
+        category.setUser(userService.returnIfExists(userId));
         log.info("Создание категории - {}", category);
         category = repository.save(category);
         return mapper.toCategoryDto(category);
@@ -45,17 +40,9 @@ public class CategoryServiceImpl implements CategoryService{
     @Transactional
     @Override
     public CategoryDto updateCategory(CategoryDto categoryDto, Long userId, Long catId){
-        //проверка категории на дублирование имени
-        Category checkTitle = repository.findByUser_IdAndTitle(userId, categoryDto.getTitle());
-        if(checkTitle != null){
-            throw new RuntimeException(String.format("Category с таким же именем %s, уже существует!", checkTitle.getTitle()));
-        }
 
         //проверка на принадлежность категории юзеру
-        Category category = repository.findByIdAndUser_Id(catId, userId);
-        if(category == null){
-            throw new RuntimeException(String.format("Category с таким id {} и пользователем {} не существует!", catId, userId ));
-        }
+        Category category = returnIfExists(userId, catId);
 
         category = mapper.updateCategory(category, categoryDto);
         log.info("Обновление категории - {}", category);
@@ -64,10 +51,23 @@ public class CategoryServiceImpl implements CategoryService{
     }
 
     @Override
-    public List<CategoryDto> getCategorysByIdUser(Long userId){
-        List<Category> categories = repository.findAllByUser_Id(userId);
+    public CategoryDto getCategoryById(Long userId, Long catId) {
+        Category category = returnIfExists(userId, catId);
+
+        log.info("Получение категории - {}", category);
+        return mapper.toCategoryDto(category);
+    }
+
+    @Override
+    public List<CategoryDto> getCategoriesByIdUser(Long userId){
+        List<Category> categories = repository.findAllByUserId(userId);
         return categories.stream()
                 .map(mapper::toCategoryDto)
                 .collect(Collectors.toList());
+    }
+
+    private Category returnIfExists(Long userId, Long catId) {
+        return repository.findByIdAndUserId(catId, userId)
+                .orElseThrow(() -> new NotFoundException("Category", catId));
     }
 }

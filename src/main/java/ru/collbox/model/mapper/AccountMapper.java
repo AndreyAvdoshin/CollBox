@@ -8,10 +8,8 @@ import ru.collbox.model.Account;
         uses = {UserMapper.class})
 public interface AccountMapper {
 
-    //@Mapping(target = "user.id", source = "userId")
     Account toAccount(AccountDto accountDto);
 
-    //@Mapping(target = "userId", source = "account.user.id")
     AccountDto toAccountDto(Account account);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

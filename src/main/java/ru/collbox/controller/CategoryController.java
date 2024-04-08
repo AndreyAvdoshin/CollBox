@@ -1,8 +1,10 @@
 package ru.collbox.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.CategoryDto;
 import ru.collbox.service.CategoryService;
@@ -10,8 +12,9 @@ import ru.collbox.service.CategoryService;
 import java.util.List;
 
 @Slf4j
+@Validated
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("/users/{userId}/categories")
 public class CategoryController {
     private final CategoryService service;
 
@@ -19,23 +22,23 @@ public class CategoryController {
         this.service = service;
     }
 
-    @PostMapping("/{userId}")
-    public CategoryDto createCategory(@Valid @RequestBody CategoryDto categoryDto,@PathVariable Long userId){
-        log.info("Запрос создания категории - {}, {}", categoryDto, userId);
+    @PostMapping
+    public CategoryDto createCategory(@RequestBody @Valid CategoryDto categoryDto,
+                                      @PathVariable @Positive Long userId) {
+        log.info("Запрос создания категории - {}, пользователем с id - {}", categoryDto, userId);
         return service.createCategory(categoryDto, userId);
     }
 
-    @SneakyThrows
-    @PatchMapping("/{userId}/{catId}")
+    @PatchMapping("/{catId}")
     public CategoryDto updateCategory(@RequestBody CategoryDto categoryDto,
-                              @PathVariable long userId, @PathVariable long catId) {
-        log.info("Запрос обновления категории  categoryDto {}, userId {}, catId {}", categoryDto, userId, catId);
+                                      @PathVariable @Positive Long userId, @PathVariable @Positive Long catId) {
+        log.info("Запрос обновления категории - {} по id - {}, пользователем по id - {}", categoryDto, catId, userId);
         return service.updateCategory(categoryDto, userId, catId);
     }
 
-    @GetMapping("/{userId}")
-    public List<CategoryDto> getCategorysByIdUser(@PathVariable long userId) {
-        log.info("Запрос получение всех категорий пользователя по индикатору userId = {}", userId);
-        return service.getCategorysByIdUser(userId);
+    @GetMapping
+    public List<CategoryDto> getCategoriesByIdUser(@PathVariable Long userId) {
+        log.info("Запрос получение всех категорий пользователя по id - {}", userId);
+        return service.getCategoriesByIdUser(userId);
     }
 }

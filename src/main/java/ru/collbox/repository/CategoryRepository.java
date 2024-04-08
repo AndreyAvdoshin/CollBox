@@ -4,12 +4,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import ru.collbox.model.Category;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-    Category findByUser_IdAndTitle (Long userId, String title);
+    Category findByUserIdAndTitle (Long userId, String title);
 
-    List<Category> findAllByUser_Id(Long userId);
+    List<Category> findAllByUserId(Long userId);
 
-    Category findByIdAndUser_Id(Long catId, Long userId);
+    Optional<Category> findByIdAndUserId(Long catId, Long userId);
 }
