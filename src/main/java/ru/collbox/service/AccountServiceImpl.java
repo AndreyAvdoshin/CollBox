@@ -65,6 +65,12 @@ public class AccountServiceImpl implements AccountService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public void deleteAccountById(Long userId, Long accId) {
+        Account account = returnIfExists(userId, accId);
+        repository.delete(account);
+    }
+
     public Account returnIfExists(Long userId, Long accId) {
         return repository.findByIdAndUserId(accId, userId)
                 .orElseThrow(() -> new NotFoundException("Account", accId));

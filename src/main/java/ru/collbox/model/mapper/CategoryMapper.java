@@ -10,10 +10,10 @@ import ru.collbox.model.Category;
 public interface CategoryMapper {
 
 
-    @Mapping(target = "user.id", source = "userId")
+    //@Mapping(target = "user.id", source = "userId")
     Category toCategory(CategoryDto categoryDto, Long userId);
 
-    @Mapping(target = "userId", source = "user.id")
+    //@Mapping(target = "userId", source = "user.id")
     CategoryDto toCategoryDto(Category category);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

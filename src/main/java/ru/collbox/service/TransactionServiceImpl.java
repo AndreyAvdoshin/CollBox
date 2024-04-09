@@ -15,24 +15,31 @@ import ru.collbox.repository.UserRepository;
 @Slf4j
 @Service
 @Transactional(readOnly = true)
-@RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService{
-    private final TransactionRepository repository;
-    private final UserRepository userRepository;
-    private final CategoryRepository categoryRepository;
-    private final AccountRepository accountRepository;
-    private final TransactionMapper mapper;
 
+    private final TransactionRepository repository;
+    private final TransactionMapper mapper;
+    private final UserService userService;
+    //private final CategoryRepository categoryRepository;
+    //private final AccountRepository accountRepository;
+
+    public TransactionServiceImpl(UserService userService, TransactionMapper transactionMapper,
+                                  TransactionRepository repository) {
+        this.userService = userService;
+        this.mapper = transactionMapper;
+        this.repository = repository;
+    }
 
     @Transactional
     @Override
     public TransactionDto createTransaction(TransactionDto transactionDto, Long userId) {
         Transaction transaction = mapper.toTransaction(transactionDto);
-        transaction.setUser(userRepository.findById(userId).get());
-        transaction.setCategory(categoryRepository.findById(transactionDto.getCategory()).get());
-        transaction.setAccount(accountRepository.findById(transactionDto.getAccount()).get());
-        log.info("Создание транзакции - {}", transaction);
+        transaction.setUser(userService.returnIfExists(userId));
+        //transaction.setCategory(categoryRepository.findById(transactionDto.getCategory()).get());
+        //transaction.setAccount(accountRepository.findById(transactionDto.getAccount()).get());
         transaction = repository.save(transaction);
+
+        log.info("Создание транзакции - {}", transaction);
         return mapper.toTransactionDto(transaction);
     }
 }

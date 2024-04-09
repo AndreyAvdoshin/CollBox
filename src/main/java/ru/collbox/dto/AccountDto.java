@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class AccountDto {
+    private Long id;
+
     @NotBlank
     private String title;
     private Double balance;

@@ -4,12 +4,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.UserDto;
 import ru.collbox.service.UserService;
 
 
 @Slf4j
+@Validated
 @RestController
 @RequestMapping("/users")
 public class UserController {

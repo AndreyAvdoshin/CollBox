@@ -2,7 +2,6 @@ package ru.collbox.controller;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +28,19 @@ public class CategoryController {
         return service.createCategory(categoryDto, userId);
     }
 
+    @GetMapping
+    public List<CategoryDto> getCategoriesByIdUser(@PathVariable Long userId) {
+        log.info("Запрос получение всех категорий пользователя по id - {}", userId);
+        return service.getCategoriesByIdUser(userId);
+    }
+
+    @GetMapping("/{catId}")
+    private CategoryDto getCategoryById(@PathVariable @Positive Long userId,
+                                        @PathVariable @Positive Long catId) {
+        log.info("Получение категории по id - {} пользователем с id - {}", catId, userId);
+        return service.getCategoryById(catId, userId);
+    }
+
     @PatchMapping("/{catId}")
     public CategoryDto updateCategory(@RequestBody CategoryDto categoryDto,
                                       @PathVariable @Positive Long userId, @PathVariable @Positive Long catId) {
@@ -36,9 +48,4 @@ public class CategoryController {
         return service.updateCategory(categoryDto, userId, catId);
     }
 
-    @GetMapping
-    public List<CategoryDto> getCategoriesByIdUser(@PathVariable Long userId) {
-        log.info("Запрос получение всех категорий пользователя по id - {}", userId);
-        return service.getCategoriesByIdUser(userId);
-    }
 }

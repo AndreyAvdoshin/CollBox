@@ -1,20 +1,29 @@
 package ru.collbox.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.collbox.TransactionType;
-import ru.collbox.model.Account;
-import ru.collbox.model.Category;
-import ru.collbox.model.User;
 
 @Data
 @NoArgsConstructor
 public class TransactionDto {
-    private Long user;
-    private Long category;
-    private Long account;
+    private Long id;
+
+    @NotNull
+    @Positive
+    private Long categoryId;
+
+    @NotNull
+    @Positive
+    private Long accountId;
     private String description;
+
+    @NotNull
     private Double amount;
+
+    @NotNull
     private TransactionType transactionType;
-    private boolean active;
+    private boolean active = true;
 }

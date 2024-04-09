@@ -32,8 +32,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         Category category = mapper.toCategory(categoryDto, userId);
         category.setUser(userService.returnIfExists(userId));
-        log.info("Создание категории - {}", category);
         category = repository.save(category);
+
+        log.info("Создание категории - {}", category);
         return mapper.toCategoryDto(category);
     }
 
@@ -45,8 +46,9 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = returnIfExists(userId, catId);
 
         category = mapper.updateCategory(category, categoryDto);
-        log.info("Обновление категории - {}", category);
         category = repository.save(category);
+
+        log.info("Обновление категории - {}", category);
         return mapper.toCategoryDto(category);
     }
 

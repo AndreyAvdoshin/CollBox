@@ -3,6 +3,7 @@ package ru.collbox.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.AccountDto;
@@ -33,6 +34,12 @@ public class AccountController {
         return service.getAccountById(userId, accId);
     }
 
+    @GetMapping
+    public List<AccountDto> getAccountsByIdUser(@PathVariable @Positive Long userId) {
+        log.info("Запрос получение всех счётов пользователя по id - {}", userId);
+        return service.getAccountsByIdUser(userId);
+    }
+
     @PatchMapping("/{accId}")
     public AccountDto updateAccount(@RequestBody AccountDto accountDto,
                                     @PathVariable Long userId, @PathVariable @Positive Long accId) {
@@ -40,9 +47,10 @@ public class AccountController {
         return service.updateAccount(accountDto, userId, accId);
     }
 
-    @GetMapping
-    public List<AccountDto> getAccountsByIdUser(@PathVariable @Positive Long userId) {
-        log.info("Запрос получение всех счётов пользователя по id - {}", userId);
-        return service.getAccountsByIdUser(userId);
+    @DeleteMapping("/{accId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAccount(@PathVariable Long userId, @PathVariable @Positive Long accId) {
+        log.info("Запрос на удаления счета по id - {}, пользователем с id - {}", accId, userId);
+        service.deleteAccountById(userId, accId);
     }
 }
