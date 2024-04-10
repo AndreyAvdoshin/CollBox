@@ -30,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public CategoryDto createCategory(CategoryDto categoryDto, Long userId) {
 
-        Category category = mapper.toCategory(categoryDto, userId);
+        Category category = mapper.toCategory(categoryDto);
         category.setUser(userService.returnIfExists(userId));
         category = repository.save(category);
 
@@ -68,7 +68,8 @@ public class CategoryServiceImpl implements CategoryService {
                 .collect(Collectors.toList());
     }
 
-    private Category returnIfExists(Long userId, Long catId) {
+    @Override
+    public Category returnIfExists(Long userId, Long catId) {
         return repository.findByIdAndUserId(catId, userId)
                 .orElseThrow(() -> new NotFoundException("Category", catId));
     }

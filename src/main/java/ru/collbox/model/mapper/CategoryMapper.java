@@ -5,15 +5,12 @@ import org.mapstruct.factory.Mappers;
 import ru.collbox.dto.CategoryDto;
 import ru.collbox.model.Category;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {UserMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CategoryMapper {
 
+    Category toCategory(CategoryDto categoryDto);
 
-    //@Mapping(target = "user.id", source = "userId")
-    Category toCategory(CategoryDto categoryDto, Long userId);
-
-    //@Mapping(target = "userId", source = "user.id")
+    //@Mapping(source = "user.id", target = "userId")
     CategoryDto toCategoryDto(Category category);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

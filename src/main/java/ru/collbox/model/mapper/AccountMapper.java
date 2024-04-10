@@ -4,8 +4,7 @@ import org.mapstruct.*;
 import ru.collbox.dto.AccountDto;
 import ru.collbox.model.Account;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
-        uses = {UserMapper.class})
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AccountMapper {
 
     Account toAccount(AccountDto accountDto);

@@ -13,11 +13,11 @@ public interface TransactionMapper {
     @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
     //@Mapping(target = "user.id", source = "transactionDto.user")
     //@Mapping(target = "category.id", source = "transactionDto.category")
-    //@Mapping(target = "account.id", source = "transactionDto.account")
+    //@Mapping(source = "transactionDto.accountId", target = "account.id")
     Transaction toTransaction(TransactionDto transactionDto);
 
     //@Mapping(target = "user", source = "transaction.user.id")
-    //@Mapping(target = "category", source = "transaction.category.id")
-    //@Mapping(target = "account", source = "transaction.account.id")
+    @Mapping(source = "transaction.category.id", target = "categoryId")
+    @Mapping(source = "transaction.account.id", target = "accountId")
     TransactionDto toTransactionDto(Transaction transaction);
 }

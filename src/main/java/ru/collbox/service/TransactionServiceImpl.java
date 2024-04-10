@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.model.Transaction;
 import ru.collbox.model.mapper.TransactionMapper;
-import ru.collbox.repository.AccountRepository;
-import ru.collbox.repository.CategoryRepository;
 import ru.collbox.repository.TransactionRepository;
 import ru.collbox.repository.UserRepository;
 
@@ -20,12 +18,15 @@ public class TransactionServiceImpl implements TransactionService{
     private final TransactionRepository repository;
     private final TransactionMapper mapper;
     private final UserService userService;
-    //private final CategoryRepository categoryRepository;
-    //private final AccountRepository accountRepository;
+    private final CategoryService categoryService;
+    private final AccountService accountService;
 
-    public TransactionServiceImpl(UserService userService, TransactionMapper transactionMapper,
+    public TransactionServiceImpl(UserService userService, AccountService accountService,
+                                  TransactionMapper transactionMapper, CategoryService categoryService,
                                   TransactionRepository repository) {
         this.userService = userService;
+        this.accountService = accountService;
+        this.categoryService = categoryService;
         this.mapper = transactionMapper;
         this.repository = repository;
     }
@@ -34,9 +35,11 @@ public class TransactionServiceImpl implements TransactionService{
     @Override
     public TransactionDto createTransaction(TransactionDto transactionDto, Long userId) {
         Transaction transaction = mapper.toTransaction(transactionDto);
+
         transaction.setUser(userService.returnIfExists(userId));
-        //transaction.setCategory(categoryRepository.findById(transactionDto.getCategory()).get());
-        //transaction.setAccount(accountRepository.findById(transactionDto.getAccount()).get());
+        transaction.setCategory(transactionDto.getCategoryId() != null ?
+                categoryService.returnIfExists(userId, transactionDto.getCategoryId()) : null);
+        transaction.setAccount(accountService.returnIfExists(userId, transactionDto.getAccountId()));
         transaction = repository.save(transaction);
 
         log.info("Создание транзакции - {}", transaction);
