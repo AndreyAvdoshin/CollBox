@@ -1,7 +1,9 @@
 package ru.collbox.service;
 
 import ru.collbox.dto.TransactionDto;
+import ru.collbox.dto.TransactionFullDto;
 
 public interface TransactionService {
-    TransactionDto createTransaction(TransactionDto transactionDto, Long userId);
+
+    TransactionFullDto createTransaction(TransactionDto transactionDto, Long userId);
 }

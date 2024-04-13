@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.TransactionDto;
+import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.service.TransactionService;
 
 @Slf4j
@@ -20,8 +21,8 @@ public class TransactionController {
     }
 
     @PostMapping
-    public TransactionDto createTransaction(@RequestBody @Valid TransactionDto transactionDto,
-                                            @PathVariable @Positive Long userId) {
+    public TransactionFullDto createTransaction(@RequestBody @Valid TransactionDto transactionDto,
+                                                @PathVariable @Positive Long userId) {
         log.info("Запрос создания транзакции - {}, пользователем по id - {}", transactionDto, userId);
         return service.createTransaction(transactionDto, userId);
     }

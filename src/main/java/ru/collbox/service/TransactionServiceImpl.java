@@ -1,14 +1,13 @@
 package ru.collbox.service;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.dto.TransactionDto;
+import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.model.Transaction;
 import ru.collbox.model.mapper.TransactionMapper;
 import ru.collbox.repository.TransactionRepository;
-import ru.collbox.repository.UserRepository;
 
 @Slf4j
 @Service
@@ -33,7 +32,7 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Transactional
     @Override
-    public TransactionDto createTransaction(TransactionDto transactionDto, Long userId) {
+    public TransactionFullDto createTransaction(TransactionDto transactionDto, Long userId) {
         Transaction transaction = mapper.toTransaction(transactionDto);
 
         transaction.setUser(userService.returnIfExists(userId));
@@ -43,6 +42,10 @@ public class TransactionServiceImpl implements TransactionService{
         transaction = repository.save(transaction);
 
         log.info("Создание транзакции - {}", transaction);
-        return mapper.toTransactionDto(transaction);
+        TransactionFullDto transactionFullDto = mapper.toTransactionFullResponseDto(transaction);
+
+        log.info("Создание транзакции - {}", transactionFullDto);
+
+        return transactionFullDto;
     }
 }

@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
 import ru.collbox.dto.TransactionDto;
+import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.model.Transaction;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
@@ -20,4 +21,8 @@ public interface TransactionMapper {
     @Mapping(source = "transaction.category.id", target = "categoryId")
     @Mapping(source = "transaction.account.id", target = "accountId")
     TransactionDto toTransactionDto(Transaction transaction);
+
+    @Mapping(source = "transaction.category.id", target = "category.id")
+    @Mapping(source = "transaction.account.id", target = "account.id")
+    TransactionFullDto toTransactionFullResponseDto(Transaction transaction);
 }
