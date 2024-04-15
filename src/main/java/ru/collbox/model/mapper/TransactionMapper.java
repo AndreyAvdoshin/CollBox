@@ -1,10 +1,11 @@
 package ru.collbox.model.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
+import org.mapstruct.*;
+import ru.collbox.dto.AccountDto;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.dto.TransactionFullDto;
+import ru.collbox.dto.UpdateTransactionDto;
+import ru.collbox.model.Account;
 import ru.collbox.model.Transaction;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING,
@@ -24,5 +25,8 @@ public interface TransactionMapper {
 
     @Mapping(source = "transaction.category.id", target = "category.id")
     @Mapping(source = "transaction.account.id", target = "account.id")
-    TransactionFullDto toTransactionFullResponseDto(Transaction transaction);
+    TransactionFullDto toTransactionFullDto(Transaction transaction);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    Transaction updateTransaction(@MappingTarget Transaction transaction, UpdateTransactionDto transactionDto);
 }

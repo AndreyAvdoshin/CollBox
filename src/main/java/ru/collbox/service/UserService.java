@@ -14,4 +14,6 @@ public interface UserService {
     UserDto updateUser(UserDto userDto, Long userId);
 
     User returnIfExists(Long userId);
+
+    void checkExistingUser(Long userId);
 }

@@ -7,6 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.dto.TransactionFullDto;
+import ru.collbox.dto.UpdateTransactionDto;
 import ru.collbox.service.TransactionService;
 
 @Slf4j
@@ -25,5 +26,14 @@ public class TransactionController {
                                                 @PathVariable @Positive Long userId) {
         log.info("Запрос создания транзакции - {}, пользователем по id - {}", transactionDto, userId);
         return service.createTransaction(transactionDto, userId);
+    }
+
+    @PatchMapping("/{transactId}")
+    public TransactionFullDto updateTransaction(@RequestBody @Valid UpdateTransactionDto transactionDto,
+                                                @PathVariable @Positive Long userId,
+                                                @PathVariable @Positive Long transId) {
+        log.info("Запрос на обновление транзакции - {}, по id - {}, пользователем по id - {}",
+                transactionDto, transId, userId);
+        return service.updateTransaction(transactionDto, userId, transId);
     }
 }

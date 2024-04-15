@@ -6,15 +6,13 @@ import lombok.NoArgsConstructor;
 import ru.collbox.TransactionType;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class TransactionFullDto {
-
-    private Long id;
-    private CategoryDto category;
-    private AccountDto account;
+@NoArgsConstructor
+public class UpdateTransactionDto {
+    private Long categoryId;
+    private Long accountId;
     private String description;
     private Double amount;
     private TransactionType transactionType;
-    private boolean active = true;
+    private boolean active;
 }
