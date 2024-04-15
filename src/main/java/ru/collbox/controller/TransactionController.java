@@ -28,12 +28,12 @@ public class TransactionController {
         return service.createTransaction(transactionDto, userId);
     }
 
-    @PatchMapping("/{transactId}")
+    @PatchMapping("/{transId}")
     public TransactionFullDto updateTransaction(@RequestBody @Valid UpdateTransactionDto transactionDto,
                                                 @PathVariable @Positive Long userId,
                                                 @PathVariable @Positive Long transId) {
         log.info("Запрос на обновление транзакции - {}, по id - {}, пользователем по id - {}",
                 transactionDto, transId, userId);
-        return service.updateTransaction(transactionDto, userId, transId);
+        return service.updateTransactionByUserId(transactionDto, userId, transId);
     }
 }
