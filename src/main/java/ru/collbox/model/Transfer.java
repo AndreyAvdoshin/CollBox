@@ -36,4 +36,7 @@ public class Transfer extends BaseEntity {
 
     @Column(name = "transfer_date")
     private LocalDateTime transferDate;
+
+    @Column(name = "updated")
+    private LocalDateTime updated;
 }

@@ -45,4 +45,6 @@ public class Transaction extends BaseEntity {
     @Column(name = "created")
     private LocalDateTime created;
 
+    @Column(name = "updated")
+    private LocalDateTime updated;
 }

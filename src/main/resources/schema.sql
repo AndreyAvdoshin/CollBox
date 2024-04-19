@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS transactions (
     amount FLOAT NOT NULL,
     transaction_type VARCHAR(50) NOT NULL,
     active BOOLEAN DEFAULT TRUE,
-    created TIMESTAMP WITHOUT TIME ZONE NOT NULL
+    created TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated TIMESTAMP WITHOUT TIME ZONE
 );
 
 CREATE TABLE IF NOT EXISTS transfers (
@@ -40,5 +41,6 @@ CREATE TABLE IF NOT EXISTS transfers (
     destination_account_id BIGINT NOT NULL REFERENCES accounts(id),
     amount FLOAT NOT NULL,
     description VARCHAR(1000),
-    transfer_date TIMESTAMP WITHOUT TIME ZONE NOT NULL
+    transfer_date TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    updated TIMESTAMP WITHOUT TIME ZONE
 );

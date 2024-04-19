@@ -3,14 +3,19 @@ package ru.collbox.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.collbox.TransactionType;
+import ru.collbox.dto.AccountDto;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.dto.UpdateTransactionDto;
 import ru.collbox.exception.NotFoundException;
 import ru.collbox.exception.NotOwnerException;
+import ru.collbox.model.Account;
 import ru.collbox.model.Transaction;
 import ru.collbox.model.mapper.TransactionMapper;
 import ru.collbox.repository.TransactionRepository;
+
+import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -36,6 +41,9 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     @Override
     public TransactionFullDto createTransaction(TransactionDto transactionDto, Long userId) {
+        //TODO при создании транзакции нужно отнять/прибавить от account +/- amount, вызвать метод обновления account 'updateAccount' для обновления счёта
+        recalculationAccount(transactionDto, userId);
+
         Transaction transaction = mapper.toTransaction(transactionDto);
 
         transaction.setUser(userService.returnIfExists(userId));
@@ -52,12 +60,20 @@ public class TransactionServiceImpl implements TransactionService {
     }
     @Transactional
     @Override
-    public TransactionFullDto updateTransactionByUserId(UpdateTransactionDto transactionDto, Long userId,
+    public TransactionFullDto updateTransactionByUserId(UpdateTransactionDto updateTransactionDto, Long userId,
                                                         Long transId) {
+        //TODO при обновлении выполняется переасчёт Account
+        recalculationAccount(new TransactionDto(null,null,
+                        updateTransactionDto.getAccountId(), null,
+                        updateTransactionDto.getAmount(),
+                        updateTransactionDto.getTransactionType(),
+                        updateTransactionDto.isActive()), userId);
+
         Transaction transaction = getTransactionBelongUser(userId, transId);
 
-        transaction = mapper.updateTransaction(transaction, transactionDto);
-        updateTransaction(transactionDto, transaction, userId);
+        transaction = mapper.updateTransaction(transaction, updateTransactionDto);
+        updateTransaction(updateTransactionDto, transaction, userId);
+        transaction.setUpdated(LocalDateTime.now());
         transaction = repository.save(transaction);
         
         log.info("Обновление транзакции - {}", transaction);
@@ -85,5 +101,17 @@ public class TransactionServiceImpl implements TransactionService {
 
         transaction.setCategory(transactionDto.getCategoryId() != null ?
                 categoryService.returnIfExists(userId, transactionDto.getCategoryId()) : transaction.getCategory());
+    }
+
+    private void recalculationAccount(TransactionDto transactionDto, Long userId){
+        Account account = accountService.returnIfExists(userId, transactionDto.getAccountId());
+
+        if(transactionDto.getTransactionType().equals(TransactionType.EXPENSE)){
+            account.setBalance(account.getBalance() - transactionDto.getAmount());
+            accountService.updateAccount(new AccountDto(null,null, account.getBalance()), userId, transactionDto.getAccountId());
+        } else {
+            account.setBalance(account.getBalance() + transactionDto.getAmount());
+            accountService.updateAccount(new AccountDto(null,null, account.getBalance()), userId, transactionDto.getAccountId());
+        }
     }
 }

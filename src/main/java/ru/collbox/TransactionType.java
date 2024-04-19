@@ -1,6 +1,6 @@
 package ru.collbox;
 
 public enum TransactionType {
-    EXPENSE,
-    INCOME
+    EXPENSE, //трата, расход
+    INCOME //доход
 }
