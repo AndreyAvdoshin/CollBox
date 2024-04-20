@@ -42,8 +42,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionFullDto createTransaction(TransactionDto transactionDto, Long userId) {
         //TODO при создании транзакции нужно отнять/прибавить от account +/- amount, вызвать метод обновления account 'updateAccount' для обновления счёта
-        recalculationAccount(transactionDto, userId);
-
         Transaction transaction = mapper.toTransaction(transactionDto);
 
         transaction.setUser(userService.returnIfExists(userId));
@@ -51,6 +49,8 @@ public class TransactionServiceImpl implements TransactionService {
                 categoryService.returnIfExists(userId, transactionDto.getCategoryId()) : null);
         transaction.setAccount(accountService.returnIfExists(userId, transactionDto.getAccountId()));
         transaction = repository.save(transaction);
+
+        recalculationAccount(transaction, userId);
 
         TransactionFullDto transactionFullDto = mapper.toTransactionFullDto(transaction);
 
@@ -63,21 +63,27 @@ public class TransactionServiceImpl implements TransactionService {
     public TransactionFullDto updateTransactionByUserId(UpdateTransactionDto updateTransactionDto, Long userId,
                                                         Long transId) {
         //TODO при обновлении выполняется переасчёт Account
-        recalculationAccount(new TransactionDto(null,null,
-                        updateTransactionDto.getAccountId(), null,
-                        updateTransactionDto.getAmount(),
-                        updateTransactionDto.getTransactionType(),
-                        updateTransactionDto.isActive()), userId);
 
         Transaction transaction = getTransactionBelongUser(userId, transId);
 
         transaction = mapper.updateTransaction(transaction, updateTransactionDto);
         updateTransaction(updateTransactionDto, transaction, userId);
         transaction.setUpdated(LocalDateTime.now());
+
         transaction = repository.save(transaction);
+        recalculationAccount(transaction, userId);
         
         log.info("Обновление транзакции - {}", transaction);
         return mapper.toTransactionFullDto(transaction);
+    }
+
+    @Override
+    public void deleteTransaction(Long userId, Long transId) {
+        Transaction transaction = getTransactionBelongUser(userId, transId);
+        recalculationAccountToDelete(transaction, userId);
+
+        log.info("Удаление транзакции - {}", transaction);
+        repository.delete(transaction);
     }
 
     private Transaction getTransactionBelongUser(Long userId, Long transId) {
@@ -103,15 +109,32 @@ public class TransactionServiceImpl implements TransactionService {
                 categoryService.returnIfExists(userId, transactionDto.getCategoryId()) : transaction.getCategory());
     }
 
-    private void recalculationAccount(TransactionDto transactionDto, Long userId){
-        Account account = accountService.returnIfExists(userId, transactionDto.getAccountId());
+    private void recalculationAccount(Transaction transaction, Long userId) {
+        Account account = accountService.returnIfExists(userId, transaction.getAccount().getId());
 
-        if(transactionDto.getTransactionType().equals(TransactionType.EXPENSE)){
-            account.setBalance(account.getBalance() - transactionDto.getAmount());
-            accountService.updateAccount(new AccountDto(null,null, account.getBalance()), userId, transactionDto.getAccountId());
+        /*TODO добавить проверку, если на балансе нет денег, то потритить их нельзя???
+          или если трата больше, чем остаток на балансе
+         */
+
+        if (transaction.getTransactionType().equals(TransactionType.EXPENSE)) {
+            account.setBalance(account.getBalance() - transaction.getAmount());
+            accountService.updateAccount(account);
         } else {
-            account.setBalance(account.getBalance() + transactionDto.getAmount());
-            accountService.updateAccount(new AccountDto(null,null, account.getBalance()), userId, transactionDto.getAccountId());
+            account.setBalance(account.getBalance() + transaction.getAmount());
+            accountService.updateAccount(account);
+        }
+    }
+
+    private void recalculationAccountToDelete(Transaction transaction, Long userId) {
+        Account account = accountService.returnIfExists(userId,
+                transaction.getAccount().getId());
+
+        if (transaction.getTransactionType().equals(TransactionType.EXPENSE)) {
+            account.setBalance(account.getBalance() + transaction.getAmount());
+            accountService.updateAccount(account);
+        } else {
+            account.setBalance(account.getBalance() - transaction.getAmount());
+            accountService.updateAccount(account);
         }
     }
 }

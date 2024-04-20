@@ -3,6 +3,7 @@ package ru.collbox.controller;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.TransactionDto;
@@ -35,5 +36,12 @@ public class TransactionController {
         log.info("Запрос на обновление транзакции - {}, по id - {}, пользователем по id - {}",
                 transactionDto, transId, userId);
         return service.updateTransactionByUserId(transactionDto, userId, transId);
+    }
+
+    @DeleteMapping("/{transId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTransaction(@PathVariable @Positive Long userId, @PathVariable @Positive Long transId) {
+        log.info("Запрос на уладение транзакции по id - {} пользователем по id - {}", transId, userId);
+        service.deleteTransaction(userId, transId);
     }
 }

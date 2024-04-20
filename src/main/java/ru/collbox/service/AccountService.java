@@ -17,4 +17,6 @@ public interface AccountService {
     void deleteAccountById(Long userId, Long accId);
 
     Account returnIfExists(Long userId, Long accId);
+
+    void updateAccount(Account account);
 }
