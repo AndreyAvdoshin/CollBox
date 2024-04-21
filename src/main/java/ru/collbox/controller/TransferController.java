@@ -23,7 +23,7 @@ public class TransferController {
 
     @PostMapping
     public TransferFullDto createTransfer(@RequestBody @Valid TransferDto transferDto,
-                                          @PathVariable @Positive Long userId){
+                                          @PathVariable @Positive Long userId) {
         log.info("Запрос создания транзакции - {}, пользователем по id - {}", transferDto, userId);
         return service.createTransfer(transferDto, userId);
     }
@@ -31,7 +31,7 @@ public class TransferController {
     @PatchMapping("/{transfId}")
     public TransferFullDto updateTransfer(@RequestBody @Valid UpdateTransferDto updateTransferDto,
                                           @PathVariable @Positive Long userId,
-                                          @PathVariable @Positive Long transfId){
+                                          @PathVariable @Positive Long transfId) {
         log.info("Запрос на обновление трансфера - {}, по id - {}, пользователем по id - {}",
                 updateTransferDto, transfId, userId);
         return service.updateTransferByUserId(updateTransferDto, userId, transfId);
