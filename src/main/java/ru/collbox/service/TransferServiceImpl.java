@@ -69,6 +69,16 @@ public class TransferServiceImpl implements TransferService{
         return mapper.toTransferFullDto(transfer);
     }
 
+    @Transactional
+    @Override
+    public void deleteTransfer(Long userId, Long transfId) {
+        Transfer transfer = getTransferBelongUser(userId, transfId);
+        transferBetweenAccountsToDelete(transfer, userId);
+
+        log.info("Удаление трансфера - {}", transfer);
+        repository.delete(transfer);
+    }
+
     private Transfer getTransferBelongUser(Long userId, Long transfId) {
         Transfer transfer = returnIfExists(transfId);
         userService.checkExistingUser(userId);
@@ -103,6 +113,18 @@ public class TransferServiceImpl implements TransferService{
         Account destinationAccount = accountService.returnIfExists(userId, transfer.getDestinationAccount().getId());
 
         destinationAccount.setBalance(destinationAccount.getBalance() + transfer.getAmount());
+        accountService.updateAccount(destinationAccount);
+    }
+
+    private void transferBetweenAccountsToDelete(Transfer transfer, Long userId) {
+        Account sourceAccount = accountService.returnIfExists(userId, transfer.getSourceAccount().getId());
+
+        sourceAccount.setBalance(sourceAccount.getBalance() + transfer.getAmount());
+        accountService.updateAccount(sourceAccount);
+
+        Account destinationAccount = accountService.returnIfExists(userId, transfer.getDestinationAccount().getId());
+
+        destinationAccount.setBalance(destinationAccount.getBalance() - transfer.getAmount());
         accountService.updateAccount(destinationAccount);
     }
 }
