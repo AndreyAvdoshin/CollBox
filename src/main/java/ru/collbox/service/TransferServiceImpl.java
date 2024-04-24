@@ -57,10 +57,12 @@ public class TransferServiceImpl implements TransferService{
     @Override
     public TransferFullDto updateTransferByUserId(UpdateTransferDto updateTransferDto, Long userId, Long transfId){
         Transfer transfer = getTransferBelongUser(userId, transfId);
+        // отменяем предыдущее действие
+        transferBetweenAccountsToDelete(transfer, userId);
 
         transfer = mapper.updateTransfer(transfer, updateTransferDto);
         updateTransfer(updateTransferDto, transfer, userId);
-        transfer.setUpdated(LocalDateTime.now());
+        //transfer.setUpdated(LocalDateTime.now());
         transfer = repository.save(transfer);
 
         transferBetweenAccounts(transfer, userId);

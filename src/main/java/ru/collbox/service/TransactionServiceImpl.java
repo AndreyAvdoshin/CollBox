@@ -65,10 +65,13 @@ public class TransactionServiceImpl implements TransactionService {
         //TODO при обновлении выполняется переасчёт Account
 
         Transaction transaction = getTransactionBelongUser(userId, transId);
+        // отменяем предыдущее действие
+        recalculationAccountToDelete(transaction, userId);
 
         transaction = mapper.updateTransaction(transaction, updateTransactionDto);
         updateTransaction(updateTransactionDto, transaction, userId);
-        transaction.setUpdated(LocalDateTime.now());
+        //transaction.setUpdated(LocalDateTime.now());
+
 
         transaction = repository.save(transaction);
         recalculationAccount(transaction, userId);
@@ -77,6 +80,7 @@ public class TransactionServiceImpl implements TransactionService {
         return mapper.toTransactionFullDto(transaction);
     }
 
+    @Transactional
     @Override
     public void deleteTransaction(Long userId, Long transId) {
         Transaction transaction = getTransactionBelongUser(userId, transId);
