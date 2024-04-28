@@ -10,5 +10,7 @@ public interface TransactionService {
 
     TransactionFullDto updateTransactionByUserId(UpdateTransactionDto transactionDto, Long userId, Long transId);
 
+    TransactionFullDto getTransactionByUserId(Long userId, Long transId);
+
     void deleteTransaction(Long userId, Long transId);
 }

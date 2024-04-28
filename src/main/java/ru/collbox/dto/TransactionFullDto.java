@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.collbox.TransactionType;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,7 +18,7 @@ public class TransactionFullDto {
     private CategoryDto category;
     private AccountDto account;
     private String description;
-    private Double amount;
+    private BigDecimal amount;
     private TransactionType transactionType;
     private boolean active = true;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.collbox.TransactionType;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +24,7 @@ public class TransactionDto {
     private String description;
 
     @NotNull
-    private Double amount;
+    private BigDecimal amount;
 
     @NotNull
     private TransactionType transactionType;

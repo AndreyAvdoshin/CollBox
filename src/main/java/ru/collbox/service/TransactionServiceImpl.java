@@ -58,6 +58,15 @@ public class TransactionServiceImpl implements TransactionService {
 
         return transactionFullDto;
     }
+
+    @Override
+    public TransactionFullDto getTransactionByUserId(Long userId, Long transId) {
+        Transaction transaction = getTransactionBelongUser(userId, transId);
+
+        log.info("Получение транзакции - {}", transaction);
+        return mapper.toTransactionFullDto(transaction);
+    }
+
     @Transactional
     @Override
     public TransactionFullDto updateTransactionByUserId(UpdateTransactionDto updateTransactionDto, Long userId,
@@ -70,8 +79,6 @@ public class TransactionServiceImpl implements TransactionService {
 
         transaction = mapper.updateTransaction(transaction, updateTransactionDto);
         updateTransaction(updateTransactionDto, transaction, userId);
-        //transaction.setUpdated(LocalDateTime.now());
-
 
         transaction = repository.save(transaction);
         recalculationAccount(transaction, userId);
@@ -121,10 +128,10 @@ public class TransactionServiceImpl implements TransactionService {
          */
 
         if (transaction.getTransactionType().equals(TransactionType.EXPENSE)) {
-            account.setBalance(account.getBalance() - transaction.getAmount());
+            account.setBalance(account.getBalance().subtract(transaction.getAmount()));
             accountService.updateAccount(account);
         } else {
-            account.setBalance(account.getBalance() + transaction.getAmount());
+            account.setBalance(account.getBalance().add(transaction.getAmount()));
             accountService.updateAccount(account);
         }
     }
@@ -134,10 +141,10 @@ public class TransactionServiceImpl implements TransactionService {
                 transaction.getAccount().getId());
 
         if (transaction.getTransactionType().equals(TransactionType.EXPENSE)) {
-            account.setBalance(account.getBalance() + transaction.getAmount());
+            account.setBalance(account.getBalance().add(transaction.getAmount()));
             accountService.updateAccount(account);
         } else {
-            account.setBalance(account.getBalance() - transaction.getAmount());
+            account.setBalance(account.getBalance().subtract(transaction.getAmount()));
             accountService.updateAccount(account);
         }
     }
