@@ -8,4 +8,6 @@ public interface TransferService {
     TransferFullDto createTransfer(TransferDto transferDto, Long userId);
 
     TransferFullDto updateTransferByUserId(UpdateTransferDto updateTransferDto, Long userId, Long transfId);
+
+    void deleteTransfer(Long userId, Long transfId);
 }

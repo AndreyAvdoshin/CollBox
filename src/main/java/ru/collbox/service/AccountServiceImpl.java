@@ -77,4 +77,9 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new NotFoundException("Account", accId));
     }
 
+    @Override
+    public void updateAccount(Account account) {
+        repository.save(account);
+    }
+
 }
