@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.AccountDto;
+import ru.collbox.dto.DaySpendDto;
 import ru.collbox.service.AccountService;
+import ru.collbox.service.SpendingService;
 
 import java.util.List;
 
@@ -17,9 +19,11 @@ import java.util.List;
 @RequestMapping("/users/{userId}/accounts")
 public class AccountController {
     private final AccountService service;
+    private final SpendingService spendingService;
 
-    public AccountController(AccountService service) {
+    public AccountController(AccountService service, SpendingService spendingService) {
         this.service = service;
+        this.spendingService = spendingService;
     }
 
     @PostMapping
@@ -38,6 +42,12 @@ public class AccountController {
     public List<AccountDto> getAccountsByIdUser(@PathVariable @Positive Long userId) {
         log.info("Запрос получение всех счётов пользователя по id - {}", userId);
         return service.getAccountsByIdUser(userId);
+    }
+
+    @GetMapping("/{accId}/limit")
+    public DaySpendDto getDailyLimit(@PathVariable @Positive Long userId, @PathVariable @Positive Long accId) {
+        log.info("Запрос на получение лимита счета по id - {} пользователем по id - {}", accId, userId);
+        return spendingService.getDaysLimit(accId, userId);
     }
 
     @PatchMapping("/{accId}")
