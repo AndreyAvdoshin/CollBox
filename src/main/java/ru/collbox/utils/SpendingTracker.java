@@ -1,12 +1,14 @@
 package ru.collbox.utils;
 
 import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 
 @NoArgsConstructor
+@Component
 public class SpendingTracker {
 
     private BigDecimal dailyLimit;
