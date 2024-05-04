@@ -10,7 +10,6 @@ import java.time.LocalDate;
 
 @Service
 public class SpendingServiceImpl implements SpendingService {
-
     private final AccountService accountService;
     private final SpendingTracker tracker;
 
@@ -22,8 +21,8 @@ public class SpendingServiceImpl implements SpendingService {
     @Override
     public DaySpendDto getDaysLimit(Long accId, Long userId) {
         Account account = accountService.returnIfExists(userId, accId);
-        tracker.setDailyLimit(account.getBalance(), LocalDate.now());
-        BigDecimal dailyLimit = tracker.getDailyLimit();
+
+        BigDecimal dailyLimit = tracker.getDailyLimit(account.getBalance(), LocalDate.now());;
 
         return new DaySpendDto(LocalDate.now(), dailyLimit);
     }

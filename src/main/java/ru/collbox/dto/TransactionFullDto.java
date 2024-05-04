@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.collbox.TransactionType;
+import ru.collbox.utils.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

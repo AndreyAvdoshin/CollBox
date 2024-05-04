@@ -3,6 +3,7 @@ package ru.collbox.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import ru.collbox.utils.CategoryType;
 
 @Getter
 @Setter
@@ -20,4 +21,8 @@ public class Category extends BaseEntity {
 
     @Column(name = "title")
     private String title;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category_type")
+    private CategoryType categoryType;
 }

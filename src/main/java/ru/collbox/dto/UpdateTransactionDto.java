@@ -3,7 +3,7 @@ package ru.collbox.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.collbox.TransactionType;
+import ru.collbox.utils.TransactionType;
 
 import java.math.BigDecimal;
 

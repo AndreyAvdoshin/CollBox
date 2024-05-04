@@ -28,21 +28,15 @@ public class BudgetServiceImpl implements BudgetService{
         expenditureBudgetDto.setAccountId(account.getId());
         expenditureBudgetDto.setTitle(account.getTitle());
         expenditureBudgetDto.setBalance(account.getBalance());
-        expenditureBudgetDto.setMandatoryExpenses(account.getBalance().multiply(BigDecimal.valueOf(0.50))
-                .setScale(2, RoundingMode.HALF_UP));
-        expenditureBudgetDto.setSpendingOnDesires(account.getBalance().multiply(BigDecimal.valueOf(0.30))
-                .setScale(2, RoundingMode.HALF_UP));
-        expenditureBudgetDto.setSavings(account.getBalance().multiply(BigDecimal.valueOf(0.20))
-                .setScale(2, RoundingMode.HALF_UP));
+        expenditureBudgetDto.setMandatoryExpenses(tracker.calculation(account.getBalance(), 0.50F));
+        expenditureBudgetDto.setSpendingOnDesires(tracker.calculation(account.getBalance(), 0.30F));
+        expenditureBudgetDto.setSavings(tracker.calculation(account.getBalance(), 0.20F));
 
-        tracker.setDailyLimit(expenditureBudgetDto.getMandatoryExpenses(), LocalDate.now());
-        expenditureBudgetDto.setMandatoryExpensesMonthly(tracker.getDailyLimit());
+        expenditureBudgetDto.setMandatoryExpensesMonthly(tracker.getDailyLimit(expenditureBudgetDto.getMandatoryExpenses(), LocalDate.now()));
 
-        tracker.setDailyLimit(expenditureBudgetDto.getSpendingOnDesires(), LocalDate.now());
-        expenditureBudgetDto.setSpendingOnDesiresMonthly(tracker.getDailyLimit());
+        expenditureBudgetDto.setSpendingOnDesiresMonthly(tracker.getDailyLimit(expenditureBudgetDto.getSpendingOnDesires(), LocalDate.now()));
 
-        tracker.setDailyLimit(expenditureBudgetDto.getSavings(), LocalDate.now());
-        expenditureBudgetDto.setSavingsMonthly(tracker.getDailyLimit());
+        expenditureBudgetDto.setSavingsMonthly(tracker.getDailyLimit(expenditureBudgetDto.getSavings(), LocalDate.now()));
 
         return expenditureBudgetDto;
     }
