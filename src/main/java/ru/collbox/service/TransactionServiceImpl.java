@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.TransactionType;
-import ru.collbox.dto.AccountDto;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.dto.UpdateTransactionDto;
@@ -14,8 +13,6 @@ import ru.collbox.model.Account;
 import ru.collbox.model.Transaction;
 import ru.collbox.model.mapper.TransactionMapper;
 import ru.collbox.repository.TransactionRepository;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Service

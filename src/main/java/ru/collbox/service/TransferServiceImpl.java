@@ -11,8 +11,6 @@ import ru.collbox.model.Transfer;
 import ru.collbox.model.mapper.TransferMapper;
 import ru.collbox.repository.TransferRepository;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Service
 @Transactional(readOnly = true)
