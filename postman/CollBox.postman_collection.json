@@ -50,14 +50,12 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text",
-								"uuid": "5c0f701f-3c36-4f09-9d41-fa98e3164f4e"
+								"type": "text"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text",
-								"uuid": "bdfe908a-a4e8-488f-a237-225e1ca90ab7"
+								"type": "text"
 							}
 						],
 						"body": {
@@ -110,8 +108,7 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json",
-								"uuid": "15374b30-eb97-4dca-9282-da2cf1eed68e"
+								"value": "application/json"
 							}
 						],
 						"url": {
@@ -129,8 +126,7 @@
 								{
 									"key": "userId",
 									"value": "1",
-									"description": "(Required) id пользователя",
-									"uuid": "cb86ea19-8355-430a-8759-f2de9d777a3b"
+									"description": "(Required) id пользователя"
 								}
 							]
 						}
@@ -187,8 +183,7 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json",
-								"uuid": "e5c715d4-73ea-4a79-9e6e-03b4e66ec683"
+								"value": "application/json"
 							}
 						],
 						"url": {
@@ -206,8 +201,7 @@
 								{
 									"key": "userId",
 									"value": "2",
-									"description": "(Required) id пользователя",
-									"uuid": "15d83f45-a491-4f04-aa8d-e5ac19f4f903"
+									"description": "(Required) id пользователя"
 								}
 							]
 						}
@@ -255,14 +249,12 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text",
-								"uuid": "deb2f6d7-9865-4174-a108-04b65ff01fc7"
+								"type": "text"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text",
-								"uuid": "e2e8a9fb-a1eb-4b69-a922-a395d9f8bef3"
+								"type": "text"
 							}
 						],
 						"body": {
@@ -283,8 +275,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "4cef36ea-f90c-49df-8726-9e9f43b46674"
+									"value": "2"
 								}
 							]
 						}
@@ -332,14 +323,12 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text",
-								"uuid": "1e2046c5-1214-4a8f-8bd4-c6750fa0a901"
+								"type": "text"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text",
-								"uuid": "5c6c17d3-dfdd-42a0-bc2a-8aa03e36c38c"
+								"type": "text"
 							}
 						],
 						"body": {
@@ -360,8 +349,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3",
-									"uuid": "ac142a86-76b2-4d73-ae2b-1caeefca7983"
+									"value": "3"
 								}
 							]
 						}
@@ -409,14 +397,12 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text",
-								"uuid": "b23fa641-f7e7-4bd0-9985-8b7fa3f0bf47"
+								"type": "text"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text",
-								"uuid": "a4fc243d-b6c3-4219-b2be-68d5e19673f5"
+								"type": "text"
 							}
 						],
 						"body": {
@@ -437,8 +423,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3",
-									"uuid": "3800f36a-d959-4ef8-8ea8-2cb3477a09f7"
+									"value": "3"
 								}
 							]
 						}
@@ -457,7 +442,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Мусор\",\r\n    \"categoryType\": \"MANDATORY\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Свет\",\r\n    \"categoryType\": \"MANDATORY\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -479,8 +464,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "a0217632-d76d-49d3-ab7f-c16ef671139d"
+									"value": "2"
 								}
 							]
 						}
@@ -516,13 +500,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3",
-									"uuid": "e09b2897-bb1e-4ad2-97de-6a9df3e9e0a3"
+									"value": "3"
 								},
 								{
 									"key": "catId",
-									"value": "5",
-									"uuid": "8cedbab0-3f3e-4753-97c8-ef071fc9fbb9"
+									"value": "5"
 								}
 							]
 						}
@@ -560,8 +542,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "469e1556-8157-4ded-8a8f-d1fb7eb8f0fb"
+									"value": "2"
 								}
 							]
 						}
@@ -601,8 +582,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "9b93212e-0764-42de-b27b-4d5452e774dc"
+									"value": "2"
 								}
 							]
 						}
@@ -638,13 +618,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "fc6604a0-1971-481b-8155-97877807c79d"
+									"value": "2"
 								},
 								{
 									"key": "accId",
-									"value": "6",
-									"uuid": "6e1442e0-6211-4222-8ac1-345b34cb54b4"
+									"value": "6"
 								}
 							]
 						}
@@ -682,8 +660,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "00663486-d5a6-41f3-a3b1-4eb505c35aef"
+									"value": "2"
 								}
 							]
 						}
@@ -724,13 +701,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "87fccd0a-f110-472b-b06d-da610fb892e2"
+									"value": "2"
 								},
 								{
 									"key": "accId",
-									"value": "3",
-									"uuid": "a1db010d-5e7d-482e-9028-a7200b9b98b5"
+									"value": "3"
 								}
 							]
 						}
@@ -771,8 +746,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "c8d78609-edd1-4802-a1f3-08c91254a831"
+									"value": "2"
 								}
 							]
 						}
@@ -809,13 +783,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "727c0e21-c6b2-4f0f-94eb-c80d9310bd56"
+									"value": "2"
 								},
 								{
 									"key": "transId",
-									"value": "1",
-									"uuid": "97b38806-c2b4-4b4a-9d8a-cff529d1be55"
+									"value": "1"
 								}
 							]
 						}
@@ -852,13 +824,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "52cd4df6-f031-4bb9-8f24-e740b95227bd"
+									"value": "2"
 								},
 								{
 									"key": "transId",
-									"value": "27",
-									"uuid": "e80834a8-0747-49f2-ba38-eaeeb1d54c3b"
+									"value": "27"
 								}
 							]
 						}
@@ -899,8 +869,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "93f87d9b-2fdf-4d10-ae6c-789b7f3b33f7"
+									"value": "2"
 								}
 							]
 						}
@@ -937,13 +906,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "5a8d190c-1b96-434c-aaa6-61167bdf6039"
+									"value": "2"
 								},
 								{
 									"key": "transfId",
-									"value": "42",
-									"uuid": "747ef0c1-cda2-4398-a24b-3782775bdf7c"
+									"value": "42"
 								}
 							]
 						}
@@ -980,13 +947,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "b05f45a9-3de8-42d6-80cf-33981b66702b"
+									"value": "2"
 								},
 								{
 									"key": "transfId",
-									"value": "24",
-									"uuid": "3c293767-e51a-4daa-80cd-e2cb842b3da1"
+									"value": "24"
 								}
 							]
 						}
@@ -1023,13 +988,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "b6135f2c-1b2e-4481-b145-d10e338acb21"
+									"value": "2"
 								},
 								{
 									"key": "transfId",
-									"value": "23",
-									"uuid": "54e6de7c-9674-4f69-9aff-94ed8a2f1518"
+									"value": "23"
 								}
 							]
 						}
@@ -1062,13 +1025,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2",
-									"uuid": "36c3efe9-37b6-40ed-bd00-68da519495cb"
+									"value": "2"
 								},
 								{
 									"key": "accId",
-									"value": "3",
-									"uuid": "6810afa9-8cdd-4ac2-ab2f-d78d23ab4d0f"
+									"value": "3"
 								}
 							]
 						}
@@ -1076,6 +1037,168 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Test-Security",
+			"item": [
+				{
+					"name": "Регистрация",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Set token to variable\", () => {\r",
+									"    var responseJson = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"token\", responseJson.token);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"Кошлаков Даниил\",\r\n    \"email\": \"dan-koshlak@gmail.com\",\r\n    \"password\": \"qwertyuiop\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/auth/sign-up",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"auth",
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Авторизация",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"Кошлаков Даниил\",\r\n  \"password\": \"qwertyuiop\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{uri}}/auth/sign-in",
+							"host": [
+								"{{uri}}"
+							],
+							"path": [
+								"auth",
+								"sign-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjMsImVtYWlsIjoiZGFuLWtvc2hsYWtAZ21haWwuY29tIiwiaWF0IjoxNzE1NTEzNjE3LCJleHAiOjE3MTU2NTc2MTd9.TglsTJN5KcA7Cs-4vlArwA8aDy2G_3UBt4vghTJAWDc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authentication",
+								"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiUk9MRV9VU0VSIiwiaWQiOjMsImVtYWlsIjoiZGFuLWtvc2hsYWtAZ21haWwuY29tIiwiaWF0IjoxNzE1NTEzNjE3LCJleHAiOjE3MTU2NTc2MTd9.TglsTJN5KcA7Cs-4vlArwA8aDy2G_3UBt4vghTJAWDc"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8080/example",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"example"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
