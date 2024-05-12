@@ -3,6 +3,7 @@ package ru.collbox.dto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.collbox.utils.CategoryType;
 
 @Data
 @NoArgsConstructor
@@ -11,4 +12,6 @@ public class CategoryDto {
 
     @NotBlank
     private String title;
+
+    private CategoryType categoryType;
 }

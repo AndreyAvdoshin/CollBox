@@ -3,7 +3,7 @@ package ru.collbox.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.collbox.TransactionType;
+import ru.collbox.utils.TransactionType;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.dto.UpdateTransactionDto;

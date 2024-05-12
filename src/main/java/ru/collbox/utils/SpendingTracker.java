@@ -11,15 +11,12 @@ import java.time.LocalDate;
 @Component
 public class SpendingTracker {
 
-    private BigDecimal dailyLimit;
-
-    public void setDailyLimit(BigDecimal amount, LocalDate date) {
+    public BigDecimal getDailyLimit(BigDecimal amount, LocalDate date) {
         int daysInMonth = date.lengthOfMonth();
-        dailyLimit = amount.divide(BigDecimal.valueOf(daysInMonth), 2, RoundingMode.HALF_UP);
+        return amount.divide(BigDecimal.valueOf(daysInMonth), 2, RoundingMode.HALF_UP);
     }
-
-    public BigDecimal getDailyLimit() {
-        return dailyLimit;
+    public BigDecimal calculation(BigDecimal decimal, float percent){
+        return decimal.multiply(BigDecimal.valueOf(percent)).setScale(2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getRemainingDailyLimit(BigDecimal amount, int days) {

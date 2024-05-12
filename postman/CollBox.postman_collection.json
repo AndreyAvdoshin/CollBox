@@ -50,12 +50,14 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"uuid": "5c0f701f-3c36-4f09-9d41-fa98e3164f4e"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text"
+								"type": "text",
+								"uuid": "bdfe908a-a4e8-488f-a237-225e1ca90ab7"
 							}
 						],
 						"body": {
@@ -108,7 +110,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"uuid": "15374b30-eb97-4dca-9282-da2cf1eed68e"
 							}
 						],
 						"url": {
@@ -126,7 +129,8 @@
 								{
 									"key": "userId",
 									"value": "1",
-									"description": "(Required) id пользователя"
+									"description": "(Required) id пользователя",
+									"uuid": "cb86ea19-8355-430a-8759-f2de9d777a3b"
 								}
 							]
 						}
@@ -183,7 +187,8 @@
 						"header": [
 							{
 								"key": "Accept",
-								"value": "application/json"
+								"value": "application/json",
+								"uuid": "e5c715d4-73ea-4a79-9e6e-03b4e66ec683"
 							}
 						],
 						"url": {
@@ -201,7 +206,8 @@
 								{
 									"key": "userId",
 									"value": "2",
-									"description": "(Required) id пользователя"
+									"description": "(Required) id пользователя",
+									"uuid": "15d83f45-a491-4f04-aa8d-e5ac19f4f903"
 								}
 							]
 						}
@@ -249,12 +255,14 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"uuid": "deb2f6d7-9865-4174-a108-04b65ff01fc7"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text"
+								"type": "text",
+								"uuid": "e2e8a9fb-a1eb-4b69-a922-a395d9f8bef3"
 							}
 						],
 						"body": {
@@ -275,7 +283,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "4cef36ea-f90c-49df-8726-9e9f43b46674"
 								}
 							]
 						}
@@ -323,12 +332,14 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"uuid": "1e2046c5-1214-4a8f-8bd4-c6750fa0a901"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text"
+								"type": "text",
+								"uuid": "5c6c17d3-dfdd-42a0-bc2a-8aa03e36c38c"
 							}
 						],
 						"body": {
@@ -349,7 +360,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3"
+									"value": "3",
+									"uuid": "ac142a86-76b2-4d73-ae2b-1caeefca7983"
 								}
 							]
 						}
@@ -397,12 +409,14 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"uuid": "b23fa641-f7e7-4bd0-9985-8b7fa3f0bf47"
 							},
 							{
 								"key": "Accept",
 								"value": "*/*",
-								"type": "text"
+								"type": "text",
+								"uuid": "a4fc243d-b6c3-4219-b2be-68d5e19673f5"
 							}
 						],
 						"body": {
@@ -423,7 +437,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3"
+									"value": "3",
+									"uuid": "3800f36a-d959-4ef8-8ea8-2cb3477a09f7"
 								}
 							]
 						}
@@ -442,7 +457,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"Мусор\"\r\n}",
+							"raw": "{\r\n    \"title\": \"Мусор\",\r\n    \"categoryType\": \"MANDATORY\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -450,20 +465,22 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/categories/:userId",
+							"raw": "http://localhost:8080/users/:userId/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
-								"categories",
-								":userId"
+								"users",
+								":userId",
+								"categories"
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3"
+									"value": "2",
+									"uuid": "a0217632-d76d-49d3-ab7f-c16ef671139d"
 								}
 							]
 						}
@@ -499,11 +516,13 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "3"
+									"value": "3",
+									"uuid": "e09b2897-bb1e-4ad2-97de-6a9df3e9e0a3"
 								},
 								{
 									"key": "catId",
-									"value": "5"
+									"value": "5",
+									"uuid": "8cedbab0-3f3e-4753-97c8-ef071fc9fbb9"
 								}
 							]
 						}
@@ -541,7 +560,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "469e1556-8157-4ded-8a8f-d1fb7eb8f0fb"
 								}
 							]
 						}
@@ -581,7 +601,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "9b93212e-0764-42de-b27b-4d5452e774dc"
 								}
 							]
 						}
@@ -617,11 +638,13 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "fc6604a0-1971-481b-8155-97877807c79d"
 								},
 								{
 									"key": "accId",
-									"value": "6"
+									"value": "6",
+									"uuid": "6e1442e0-6211-4222-8ac1-345b34cb54b4"
 								}
 							]
 						}
@@ -659,7 +682,55 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "00663486-d5a6-41f3-a3b1-4eb505c35aef"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get account Limit",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/:userId/accounts/:accId/limit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								":userId",
+								"accounts",
+								":accId",
+								"limit"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2",
+									"uuid": "87fccd0a-f110-472b-b06d-da610fb892e2"
+								},
+								{
+									"key": "accId",
+									"value": "3",
+									"uuid": "a1db010d-5e7d-482e-9028-a7200b9b98b5"
 								}
 							]
 						}
@@ -678,7 +749,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoryId\": 1,\r\n    \"accountId\": 6,\r\n    \"description\": \"Первая транзакция!\",\r\n    \"amount\": 543.32,\r\n    \"transactionType\": \"INCOME\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"categoryId\": 1,\r\n    \"accountId\": 3,\r\n    \"description\": \"Первая транзакция!\",\r\n    \"amount\": 1000,\r\n    \"transactionType\": \"INCOME\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -700,7 +771,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "c8d78609-edd1-4802-a1f3-08c91254a831"
 								}
 							]
 						}
@@ -714,7 +786,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoryId\": 1,\r\n    \"accountId\": 6,\r\n    \"description\": \"Обнавленная Первая транзакция!\",\r\n    \"amount\": 54300.32,\r\n    \"transactionType\": \"INCOME\",\r\n    \"active\": true\r\n}",
+							"raw": "{\r\n    \"categoryId\": 1,\r\n    \"accountId\": 6,\r\n    \"description\": \"Обнавленная Первая транзакция!\",\r\n    \"amount\": 54300.32,\r\n    \"transactionType\": \"EXPENSE\",\r\n    \"active\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -737,11 +809,56 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "727c0e21-c6b2-4f0f-94eb-c80d9310bd56"
 								},
 								{
 									"key": "transId",
-									"value": "1"
+									"value": "1",
+									"uuid": "97b38806-c2b4-4b4a-9d8a-cff529d1be55"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upadate transaction 2",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoryId\": 1,\r\n    \"accountId\": 3,\r\n    \"description\": \"Обнавленная Первая транзакция!\",\r\n    \"amount\": 200,\r\n    \"transactionType\": \"INCOME\",\r\n    \"active\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/:userId/transactions/:transId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								":userId",
+								"transactions",
+								":transId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2",
+									"uuid": "52cd4df6-f031-4bb9-8f24-e740b95227bd"
+								},
+								{
+									"key": "transId",
+									"value": "27",
+									"uuid": "e80834a8-0747-49f2-ba38-eaeeb1d54c3b"
 								}
 							]
 						}
@@ -760,7 +877,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"sourceAccountId\": 4,\r\n    \"destinationAccountId\": 6,\r\n    \"description\": \"Создаине первого перевода!\",\r\n    \"amount\": 543.32\r\n}",
+							"raw": "{\r\n    \"sourceAccountId\": 3,\r\n    \"destinationAccountId\": 3,\r\n    \"description\": \"Создаине первого перевода с Тинькофф на Тинькофф новый счёт!\",\r\n    \"amount\": -10.00\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -782,7 +899,8 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "93f87d9b-2fdf-4d10-ae6c-789b7f3b33f7"
 								}
 							]
 						}
@@ -796,7 +914,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"sourceAccountId\": 4,\r\n    \"destinationAccountId\": 6,\r\n    \"description\": \"Обновление первого трансфер!\",\r\n    \"amount\": 100.32\r\n}",
+							"raw": "{\r\n    \"sourceAccountId\": 6,\r\n    \"destinationAccountId\": 4,\r\n    \"description\": \"Создаине первого перевода с Сбер на Тинькофф!\",\r\n    \"amount\": 100.00\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -819,11 +937,138 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "2"
+									"value": "2",
+									"uuid": "5a8d190c-1b96-434c-aaa6-61167bdf6039"
 								},
 								{
 									"key": "transfId",
-									"value": "1"
+									"value": "42",
+									"uuid": "747ef0c1-cda2-4398-a24b-3782775bdf7c"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upadate transfer 2",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sourceAccountId\": 6,\r\n    \"destinationAccountId\": 4,\r\n    \"description\": \"Обновлние перевода с Сбер на Тинькофф!\",\r\n    \"amount\": 100.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/:userId/transfers/:transfId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								":userId",
+								"transfers",
+								":transfId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2",
+									"uuid": "b05f45a9-3de8-42d6-80cf-33981b66702b"
+								},
+								{
+									"key": "transfId",
+									"value": "24",
+									"uuid": "3c293767-e51a-4daa-80cd-e2cb842b3da1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Upadate transfer 3",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sourceAccountId\": 6,\r\n    \"destinationAccountId\": 4,\r\n    \"description\": \"Обновлние перевода с Сбер на Тинькофф!\",\r\n    \"amount\": 5000000000000000.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/users/:userId/transfers/:transfId",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								":userId",
+								"transfers",
+								":transfId"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2",
+									"uuid": "b6135f2c-1b2e-4481-b145-d10e338acb21"
+								},
+								{
+									"key": "transfId",
+									"value": "23",
+									"uuid": "54e6de7c-9674-4f69-9aff-94ed8a2f1518"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Budget",
+			"item": [
+				{
+					"name": "Budget",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/users/:userId/:accId/budgets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"users",
+								":userId",
+								":accId",
+								"budgets"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "2",
+									"uuid": "36c3efe9-37b6-40ed-bd00-68da519495cb"
+								},
+								{
+									"key": "accId",
+									"value": "3",
+									"uuid": "6810afa9-8cdd-4ac2-ab2f-d78d23ab4d0f"
 								}
 							]
 						}
