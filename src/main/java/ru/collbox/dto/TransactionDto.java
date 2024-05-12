@@ -1,5 +1,6 @@
 package ru.collbox.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Schema(description = "Сущность DTO транзакции (не полная)")
 public class TransactionDto {
     private Long id;
 
