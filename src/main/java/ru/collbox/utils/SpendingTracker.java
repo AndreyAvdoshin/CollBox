@@ -11,9 +11,18 @@ import java.time.LocalDate;
 @Component
 public class SpendingTracker {
 
-    public BigDecimal getDailyLimit(BigDecimal amount, LocalDate date) {
+    public BigDecimal getDailyLimit(BigDecimal amount, Integer salaryDay, LocalDate date) {
         int daysInMonth = date.lengthOfMonth();
-        return amount.divide(BigDecimal.valueOf(daysInMonth), 2, RoundingMode.HALF_UP);
+        int dayOfMonth = date.getDayOfMonth();
+        int countDaysToSalary = 0;
+
+        if (dayOfMonth > salaryDay) {
+            countDaysToSalary = (daysInMonth - dayOfMonth) + salaryDay;
+        } else if (dayOfMonth < salaryDay) {
+            countDaysToSalary = salaryDay - dayOfMonth;
+        }
+
+        return amount.divide(BigDecimal.valueOf(countDaysToSalary), 2, RoundingMode.HALF_UP);
     }
     public BigDecimal calculation(BigDecimal decimal, float percent){
         return decimal.multiply(BigDecimal.valueOf(percent)).setScale(2, RoundingMode.HALF_UP);

@@ -27,6 +27,9 @@ public class User extends BaseEntity {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "salary_day")
+    private Integer salaryDay;
+
     @Column(name = "created")
     private LocalDateTime created;
 

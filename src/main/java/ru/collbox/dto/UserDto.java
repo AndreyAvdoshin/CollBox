@@ -24,6 +24,9 @@ public class UserDto {
     @NotBlank
     private String email;
 
+    @Schema(description = "Число долучения ЗП")
+    private Integer salaryDay = 1;
+
     @Schema(description = "Пароль пользователя", example = "jgds483JFSH-&?^%$#@!)(+=_")
     @NotBlank
     private String password;
