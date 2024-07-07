@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto createUser(UserDto userDto) {
         User user = mapper.toUser(userDto);
+
         log.info("Создание пользователя - {}", user);
         user = repository.save(user);
         return mapper.toUserDto(user);
@@ -35,8 +36,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto updateUser(UserDto userDto, Long userId) {
         User user = returnIfExists(userId);
-
         user = mapper.updateUser(user, userDto);
+
         log.info("Обновление пользователя - {}", user);
         user = repository.save(user);
 
