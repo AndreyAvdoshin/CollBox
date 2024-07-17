@@ -31,4 +31,7 @@ public class UserDto {
     @Schema(description = "Число получения ЗП", example = "1")
     private Integer salaryDay = 1;
 
+    @Schema(description = "Роль пользователя", example = "USER")
+    private String role = "USER";
+
 }
