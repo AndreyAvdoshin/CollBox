@@ -5,6 +5,10 @@ public class NotFoundException extends RuntimeException {
         super(String.format("Объект %s по id - %s не найден", entityType, id));
     }
 
+    public NotFoundException(String entityType, String email) {
+        super(String.format("Объект %s по id - %s не найден", entityType, email));
+    }
+
     public NotFoundException(String message) {
         super(message);
     }

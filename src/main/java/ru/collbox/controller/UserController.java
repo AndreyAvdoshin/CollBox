@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.collbox.dto.AuthRequest;
+import ru.collbox.dto.AuthResponse;
 import ru.collbox.dto.UserDto;
 import ru.collbox.service.UserService;
 
@@ -26,13 +28,18 @@ public class UserController {
         this.service = service;
     }
 
+    @PostMapping("/auth")
+    public AuthResponse authentication(@RequestBody @Valid AuthRequest request) {
+        return service.authenticate(request);
+    }
+
     @Operation(
             summary = "Создание пользователя",
             description = "Метод создания пользователя, принимает на вход UserDto."
     )
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto createUser(@RequestBody @Valid UserDto userDto) {
+    public AuthResponse createUser(@RequestBody @Valid UserDto userDto) {
         log.info("Запрос создания пользователя - {}", userDto);
         return service.createUser(userDto);
     }
