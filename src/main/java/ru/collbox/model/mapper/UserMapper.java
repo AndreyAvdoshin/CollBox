@@ -8,6 +8,7 @@ import ru.collbox.model.User;
 public interface UserMapper {
 
     @Mapping(target = "created", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "updated", expression = "java(java.time.LocalDateTime.now())")
     User toUser(UserDto userDto);
 
     UserDto toUserDto(User user);

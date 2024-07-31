@@ -1,11 +1,15 @@
 package ru.collbox.service;
 
+import ru.collbox.dto.AuthRequest;
+import ru.collbox.dto.AuthResponse;
 import ru.collbox.dto.UserDto;
 import ru.collbox.model.User;
 
 public interface UserService {
 
-    UserDto createUser(UserDto userDto);
+    AuthResponse authenticate(AuthRequest request);
+
+    AuthResponse createUser(UserDto userDto);
 
     void deleteUser(Long userId);
 

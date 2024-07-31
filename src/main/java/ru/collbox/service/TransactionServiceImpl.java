@@ -38,21 +38,19 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     @Override
     public TransactionFullDto createTransaction(TransactionDto transactionDto, Long userId) {
-        //TODO при создании транзакции нужно отнять/прибавить от account +/- amount, вызвать метод обновления account 'updateAccount' для обновления счёта
         Transaction transaction = mapper.toTransaction(transactionDto);
-
         transaction.setUser(userService.returnIfExists(userId));
+
         transaction.setCategory(transactionDto.getCategoryId() != null ?
                 categoryService.returnIfExists(userId, transactionDto.getCategoryId()) : null);
+
         transaction.setAccount(accountService.returnIfExists(userId, transactionDto.getAccountId()));
         transaction = repository.save(transaction);
 
         recalculationAccount(transaction, userId);
-
         TransactionFullDto transactionFullDto = mapper.toTransactionFullDto(transaction);
 
         log.info("Создание транзакции - {}", transactionFullDto);
-
         return transactionFullDto;
     }
 
@@ -68,8 +66,7 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public TransactionFullDto updateTransactionByUserId(UpdateTransactionDto updateTransactionDto, Long userId,
                                                         Long transId) {
-        //TODO при обновлении выполняется переасчёт Account
-
+        //при обновлении выполняется перерасчёт Account
         Transaction transaction = getTransactionBelongUser(userId, transId);
         // отменяем предыдущее действие
         recalculationAccountToDelete(transaction, userId);

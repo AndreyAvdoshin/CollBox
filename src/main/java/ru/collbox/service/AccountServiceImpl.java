@@ -42,8 +42,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public AccountDto updateAccount(AccountDto accountDto, Long userId, Long accId) {
         Account account = returnIfExists(userId, accId);
-
         account = mapper.updateAccount(account, accountDto);
+
         log.info("Обновление счёта - {}", account);
         account = repository.save(account);
         return mapper.toAccountDto(account);
@@ -60,6 +60,7 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<AccountDto> getAccountsByIdUser(Long userId) {
         List<Account> accounts = repository.findAllByUserId(userId);
+
         return accounts.stream()
                 .map(mapper::toAccountDto)
                 .collect(Collectors.toList());
