@@ -3,8 +3,7 @@ package ru.collbox.service;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.collbox.TransactionType;
-import ru.collbox.dto.AccountDto;
+import ru.collbox.utils.TransactionType;
 import ru.collbox.dto.TransactionDto;
 import ru.collbox.dto.TransactionFullDto;
 import ru.collbox.dto.UpdateTransactionDto;
@@ -14,8 +13,6 @@ import ru.collbox.model.Account;
 import ru.collbox.model.Transaction;
 import ru.collbox.model.mapper.TransactionMapper;
 import ru.collbox.repository.TransactionRepository;
-
-import java.time.LocalDateTime;
 
 @Slf4j
 @Service
@@ -41,37 +38,41 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     @Override
     public TransactionFullDto createTransaction(TransactionDto transactionDto, Long userId) {
-        //TODO при создании транзакции нужно отнять/прибавить от account +/- amount, вызвать метод обновления account 'updateAccount' для обновления счёта
         Transaction transaction = mapper.toTransaction(transactionDto);
-
         transaction.setUser(userService.returnIfExists(userId));
+
         transaction.setCategory(transactionDto.getCategoryId() != null ?
                 categoryService.returnIfExists(userId, transactionDto.getCategoryId()) : null);
+
         transaction.setAccount(accountService.returnIfExists(userId, transactionDto.getAccountId()));
         transaction = repository.save(transaction);
 
         recalculationAccount(transaction, userId);
-
         TransactionFullDto transactionFullDto = mapper.toTransactionFullDto(transaction);
 
         log.info("Создание транзакции - {}", transactionFullDto);
-
         return transactionFullDto;
     }
+
+    @Override
+    public TransactionFullDto getTransactionByUserId(Long userId, Long transId) {
+        Transaction transaction = getTransactionBelongUser(userId, transId);
+
+        log.info("Получение транзакции - {}", transaction);
+        return mapper.toTransactionFullDto(transaction);
+    }
+
     @Transactional
     @Override
     public TransactionFullDto updateTransactionByUserId(UpdateTransactionDto updateTransactionDto, Long userId,
                                                         Long transId) {
-        //TODO при обновлении выполняется переасчёт Account
-
+        //при обновлении выполняется перерасчёт Account
         Transaction transaction = getTransactionBelongUser(userId, transId);
         // отменяем предыдущее действие
         recalculationAccountToDelete(transaction, userId);
 
         transaction = mapper.updateTransaction(transaction, updateTransactionDto);
         updateTransaction(updateTransactionDto, transaction, userId);
-        //transaction.setUpdated(LocalDateTime.now());
-
 
         transaction = repository.save(transaction);
         recalculationAccount(transaction, userId);
@@ -121,10 +122,10 @@ public class TransactionServiceImpl implements TransactionService {
          */
 
         if (transaction.getTransactionType().equals(TransactionType.EXPENSE)) {
-            account.setBalance(account.getBalance() - transaction.getAmount());
+            account.setBalance(account.getBalance().subtract(transaction.getAmount()));
             accountService.updateAccount(account);
         } else {
-            account.setBalance(account.getBalance() + transaction.getAmount());
+            account.setBalance(account.getBalance().add(transaction.getAmount()));
             accountService.updateAccount(account);
         }
     }
@@ -134,10 +135,10 @@ public class TransactionServiceImpl implements TransactionService {
                 transaction.getAccount().getId());
 
         if (transaction.getTransactionType().equals(TransactionType.EXPENSE)) {
-            account.setBalance(account.getBalance() + transaction.getAmount());
+            account.setBalance(account.getBalance().add(transaction.getAmount()));
             accountService.updateAccount(account);
         } else {
-            account.setBalance(account.getBalance() - transaction.getAmount());
+            account.setBalance(account.getBalance().subtract(transaction.getAmount()));
             accountService.updateAccount(account);
         }
     }

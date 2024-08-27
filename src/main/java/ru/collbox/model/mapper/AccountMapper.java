@@ -1,6 +1,7 @@
 package ru.collbox.model.mapper;
 
 import org.mapstruct.*;
+import org.springframework.stereotype.Component;
 import ru.collbox.dto.AccountDto;
 import ru.collbox.model.Account;
 

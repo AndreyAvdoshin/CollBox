@@ -1,4 +1,4 @@
-package ru.collbox;
+package ru.collbox.utils;
 
 public enum TransactionType {
     EXPENSE, //трата, расход

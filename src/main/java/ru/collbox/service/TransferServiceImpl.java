@@ -11,8 +11,6 @@ import ru.collbox.model.Transfer;
 import ru.collbox.model.mapper.TransferMapper;
 import ru.collbox.repository.TransferRepository;
 
-import java.time.LocalDateTime;
-
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -62,7 +60,6 @@ public class TransferServiceImpl implements TransferService{
 
         transfer = mapper.updateTransfer(transfer, updateTransferDto);
         updateTransfer(updateTransferDto, transfer, userId);
-        //transfer.setUpdated(LocalDateTime.now());
         transfer = repository.save(transfer);
 
         transferBetweenAccounts(transfer, userId);
@@ -109,24 +106,24 @@ public class TransferServiceImpl implements TransferService{
     private void transferBetweenAccounts(Transfer transfer, Long userId){
         Account sourceAccount = accountService.returnIfExists(userId, transfer.getSourceAccount().getId());
 
-        sourceAccount.setBalance(sourceAccount.getBalance() - transfer.getAmount());
+        sourceAccount.setBalance(sourceAccount.getBalance().subtract(transfer.getAmount()));
         accountService.updateAccount(sourceAccount);
 
         Account destinationAccount = accountService.returnIfExists(userId, transfer.getDestinationAccount().getId());
 
-        destinationAccount.setBalance(destinationAccount.getBalance() + transfer.getAmount());
+        destinationAccount.setBalance(destinationAccount.getBalance().add(transfer.getAmount()));
         accountService.updateAccount(destinationAccount);
     }
 
     private void transferBetweenAccountsToDelete(Transfer transfer, Long userId) {
         Account sourceAccount = accountService.returnIfExists(userId, transfer.getSourceAccount().getId());
 
-        sourceAccount.setBalance(sourceAccount.getBalance() + transfer.getAmount());
+        sourceAccount.setBalance(sourceAccount.getBalance().add(transfer.getAmount()));
         accountService.updateAccount(sourceAccount);
 
         Account destinationAccount = accountService.returnIfExists(userId, transfer.getDestinationAccount().getId());
 
-        destinationAccount.setBalance(destinationAccount.getBalance() - transfer.getAmount());
+        destinationAccount.setBalance(destinationAccount.getBalance().subtract(transfer.getAmount()));
         accountService.updateAccount(destinationAccount);
     }
 }

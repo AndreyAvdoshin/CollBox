@@ -3,8 +3,9 @@ package ru.collbox.model;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import ru.collbox.TransactionType;
+import ru.collbox.utils.TransactionType;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Getter
@@ -33,10 +34,10 @@ public class Transaction extends BaseEntity {
     private String description;
 
     @Column(name = "amount")
-    private Double amount;
+    private BigDecimal amount;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "transaction_type")
+    @Enumerated(EnumType.STRING)
     private TransactionType transactionType;
 
     @Column(name = "active")
