@@ -7,11 +7,10 @@ import io.swagger.v3.oas.annotations.info.Info;
 @OpenAPIDefinition(
         info = @Info(
                 title = "CollBox",
-                description = "Loyalty System", version = "1.0.0",
+                description = "Yet Another Money Tracker", version = "0.0.1",
                 contact = @Contact(
-                        name = "Andrey Avdoshin Dmitry Nazarov",
-                        email = "mark@struchkov.dev",
-                        url = "https://mark.struchkov.dev"
+                        name = "Andrey Avdoshin, Dmitry Nazarov",
+                        email = "mark@struchkov.dev"
                 )
         )
 )

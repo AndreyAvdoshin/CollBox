@@ -1,0 +1,22 @@
+meta {
+  name: Add category
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/users/:userId/categories
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 2
+}
+
+body:json {
+  {
+      "title": "Мусор",
+      "categoryType": "MANDATORY"
+  }
+}

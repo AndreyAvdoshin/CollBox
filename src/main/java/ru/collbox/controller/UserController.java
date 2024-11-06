@@ -3,14 +3,15 @@ package ru.collbox.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.collbox.dto.AuthRequest;
-import ru.collbox.dto.AuthResponse;
 import ru.collbox.dto.UserDto;
 import ru.collbox.service.UserService;
 
@@ -18,7 +19,7 @@ import ru.collbox.service.UserService;
 @Slf4j
 @Validated
 @RestController
-@RequestMapping("/users")
+@RequestMapping("api/users")
 @Tag(name = "Пользователь", description = "API для работы с пользователем")
 public class UserController {
 
@@ -29,8 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/auth")
-    public AuthResponse authentication(@RequestBody @Valid AuthRequest request) {
-        return service.authenticate(request);
+    public ResponseEntity<Void> authentication(@RequestBody @Valid AuthRequest request, HttpServletResponse response) {
+        service.authenticate(request, response);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(
@@ -39,9 +41,10 @@ public class UserController {
     )
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public AuthResponse createUser(@RequestBody @Valid UserDto userDto) {
+    public ResponseEntity<Void> createUser(@RequestBody @Valid UserDto userDto, HttpServletResponse response) {
         log.info("Запрос создания пользователя - {}", userDto);
-        return service.createUser(userDto);
+        service.createUser(userDto, response);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Operation(

@@ -1,15 +1,15 @@
 package ru.collbox.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import ru.collbox.dto.AuthRequest;
-import ru.collbox.dto.AuthResponse;
 import ru.collbox.dto.UserDto;
 import ru.collbox.model.User;
 
 public interface UserService {
 
-    AuthResponse authenticate(AuthRequest request);
+    void authenticate(AuthRequest request, HttpServletResponse response);
 
-    AuthResponse createUser(UserDto userDto);
+    void createUser(UserDto userDto, HttpServletResponse response);
 
     void deleteUser(Long userId);
 

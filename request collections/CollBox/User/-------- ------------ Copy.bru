@@ -1,0 +1,44 @@
+meta {
+  name: -------- ------------ Copy
+  type: http
+  seq: 3
+}
+
+get {
+  url: http://localhost:8080/users/:userId
+  body: none
+  auth: none
+}
+
+params:path {
+  userId: 2
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("Status code is 200 or 201", function () {
+      expect(res.getStatus()).to.be.oneOf([200,201]);
+  });
+  test("Has user create response", function () {
+      pm.response.to.be.withBody;
+      pm.response.to.be.json;
+  });
+  test("Test user 'id' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('id');
+      expect(jsonData.id, '"id" must be 1').to.eql(1);
+  });
+  test("Test user 'email' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('email');
+      expect(jsonData.email, '"email" must be "user@user.com"').to.eql('user@user.com');
+  });
+  test("Test user 'name' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('name');
+      expect(jsonData.name, '"name" must be "user"').to.eql('user');
+  });
+}

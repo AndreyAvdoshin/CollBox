@@ -1,18 +1,21 @@
 package ru.collbox.service;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpCookie;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.collbox.dto.AuthRequest;
-import ru.collbox.dto.AuthResponse;
 import ru.collbox.dto.UserDto;
 import ru.collbox.exception.NotFoundException;
 import ru.collbox.model.User;
 import ru.collbox.model.mapper.UserMapper;
 import ru.collbox.repository.UserRepository;
+import ru.collbox.utils.CookieUtils;
 import ru.collbox.utils.JwtService;
 
 @Slf4j
@@ -36,7 +39,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public AuthResponse authenticate(AuthRequest request) {
+    public void authenticate(AuthRequest request, HttpServletResponse response) {
         authManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -44,23 +47,25 @@ public class UserServiceImpl implements UserService {
                 )
         );
         User user = returnIfExists(request.getEmail());
+        HttpCookie cookie = CookieUtils.setJwtCookie(jwtService.generateToken(user));
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         log.info("Аутентификация пользователя - {}", request);
-        return AuthResponse.builder().token(jwtService.generateToken(user)).build();
+
+        //return AuthResponse.builder().token(jwtService.generateToken(user)).build();
     }
 
     @Transactional
     @Override
-    public AuthResponse createUser(UserDto userDto) {
+    public void createUser(UserDto userDto, HttpServletResponse response) {
         userDto.setPassword(encoder.encode(userDto.getPassword()));
         User user = mapper.toUser(userDto);
 
         log.info("Создание пользователя - {}", user);
         user = repository.save(user);
 
-        return AuthResponse.builder()
-                .token(jwtService.generateToken(user))
-                .build();
+        HttpCookie cookie = CookieUtils.setJwtCookie(jwtService.generateToken(user));
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     }
 
     @Transactional

@@ -1,0 +1,16 @@
+meta {
+  name: Get account Limit
+  type: http
+  seq: 4
+}
+
+get {
+  url: http://localhost:8080/users/:userId/accounts/:accId/limit
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 2
+  accId: 3
+}

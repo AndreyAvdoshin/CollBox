@@ -1,0 +1,27 @@
+meta {
+  name: Upadate transaction 2
+  type: http
+  seq: 3
+}
+
+patch {
+  url: http://localhost:8080/users/:userId/transactions/:transId
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 2
+  transId: 27
+}
+
+body:json {
+  {
+      "categoryId": 1,
+      "accountId": 3,
+      "description": "Обнавленная Первая транзакция!",
+      "amount": 200,
+      "transactionType": "INCOME",
+      "active": true
+  }
+}
