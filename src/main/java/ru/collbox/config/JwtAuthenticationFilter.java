@@ -2,8 +2,10 @@ package ru.collbox.config;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +19,7 @@ import ru.collbox.utils.JwtService;
 
 import java.io.IOException;
 
+@Slf4j
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -32,16 +35,32 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
-        final String headers = request.getHeader("Authorization");
-        final String jwt;
+        final String headers;
         final String userEmail;
+        String jwt = null;
+        
+        Cookie[] cookies = request.getCookies();
 
-        if (headers == null || !headers.startsWith("Bearer ")) {
+        if (cookies!= null) {
+            for (Cookie cookie : cookies) {
+                if ("JWT".equals(cookie.getName())) {
+                    jwt = cookie.getValue();
+                }
+            }
+        }
+        
+        if (jwt == null) {
+            headers = request.getHeader("Authorization");
+            if (headers != null && headers.startsWith("Bearer ")) {
+                jwt = headers.substring(7);
+            }
+        }
+        
+        if (jwt == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        jwt = headers.substring(7);
         userEmail = jwtService.extractUsername(jwt);
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {

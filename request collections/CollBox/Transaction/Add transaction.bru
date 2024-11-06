@@ -1,0 +1,26 @@
+meta {
+  name: Add transaction
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/users/:userId/transactions
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 2
+}
+
+body:json {
+  {
+      "categoryId": 1,
+      "accountId": 3,
+      "description": "Первая транзакция!",
+      "amount": 1000,
+      "transactionType": "INCOME",
+      "active": true
+  }
+}

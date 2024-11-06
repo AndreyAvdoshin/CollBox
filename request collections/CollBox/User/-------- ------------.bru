@@ -1,0 +1,26 @@
+meta {
+  name: -------- ------------
+  type: http
+  seq: 2
+}
+
+delete {
+  url: http://localhost:8080/users/:userId
+  body: none
+  auth: none
+}
+
+params:path {
+  userId: 1
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("Ответ должен содержать код статуса 204", function () {
+      expect(res.getStatus()).to.equal(204);
+  });
+  
+}

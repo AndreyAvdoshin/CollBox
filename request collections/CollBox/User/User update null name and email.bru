@@ -1,0 +1,51 @@
+meta {
+  name: User update null name and email
+  type: http
+  seq: 5
+}
+
+patch {
+  url: http://localhost:8080/users/:userId
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 3
+}
+
+headers {
+  Content-Type: application/json
+  Accept: */*
+}
+
+body:json {
+  {
+      "password": "new-UPDATE-IdUser-3"
+  }
+}
+
+tests {
+  test("Status code is 200", function () {
+      pm.response.to.be.ok;
+  });
+  test("Has user update response", function () {
+      pm.response.to.be.withBody;
+      pm.response.to.be.json;
+  });
+  test("Test user 'id' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('id');
+      expect(jsonData.id, '"id" must be 1').to.eql(1);
+  });
+  test("Test user 'email' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('email');
+      expect(jsonData.email, '"email" must be "update@user.com"').to.eql('update@user.com');
+  });
+  test("Test user 'name' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('name');
+      expect(jsonData.name, '"name" must be "update"').to.eql('update');
+  });
+}

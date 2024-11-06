@@ -1,0 +1,16 @@
+meta {
+  name: Budget
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:8080/users/:userId/:accId/budgets
+  body: none
+  auth: none
+}
+
+params:path {
+  userId: 2
+  accId: 3
+}
