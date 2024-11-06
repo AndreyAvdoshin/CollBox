@@ -1,0 +1,49 @@
+meta {
+  name: User 1 create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/users/register
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+  Accept: */*
+}
+
+body:json {
+  {
+      "name": "user 4",
+      "email": "user-4@user.com",
+      "password": "QWR444"
+  }
+}
+
+tests {
+  test("Status code is 200 or 201", function () {
+      expect(res.getStatus()).to.be.oneOf([200,201]);
+  });
+  test("Has user create response", function () {
+      pm.response.to.be.withBody;
+      pm.response.to.be.json;
+  });
+  test("Test user 'id' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('id');
+      expect(jsonData.id, '"id" must be 1').to.eql(1);
+  });
+  test("Test user 'email' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('email');
+      expect(jsonData.email, '"email" must be "user@user.com"').to.eql('user@user.com');
+  });
+  test("Test user 'name' field", function () {
+      var jsonData = res.getBody();
+      expect(jsonData).to.have.property('name');
+      expect(jsonData.name, '"name" must be "user"').to.eql('user');
+  });
+}

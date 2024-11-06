@@ -1,6 +1,8 @@
 import React from "react";
-import { Form, Input, Button, Typography } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined} from "@ant-design/icons";
+import { Link, useNavigate } from "react-router-dom";
+import { Form, Input, Button, Typography, message } from "antd";
+import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { useAuth } from "../context/AuthContext";
 
 const { Title } = Typography;
 
@@ -11,9 +13,17 @@ const containerStyle = {
 };
 
 export default function RegisterPage() {
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
-    // Здесь будет логика отправки данных регистрации на сервер
+  const { register } = useAuth();
+  const navigate = useNavigate();
+
+  const onFinish = async (values) => {
+    const response = await register(values.name, values.password, values.email);
+    if (response) {
+      message.success("Успешная регистрация");
+      navigate("/");
+    } else {
+      message.error("Ошибка регистрации");
+    }
   };
 
   return (
@@ -27,8 +37,13 @@ export default function RegisterPage() {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
-          rules={[{ required: true, message: "Пожалуйста, введите имя пользователя!" }]}
+          name="name"
+          rules={[
+            {
+              required: true,
+              message: "Пожалуйста, введите имя пользователя!",
+            },
+          ]}
         >
           <Input prefix={<UserOutlined />} placeholder="Имя пользователя" />
         </Form.Item>
@@ -36,7 +51,7 @@ export default function RegisterPage() {
           name="email"
           rules={[
             { required: true, message: "Пожалуйста, введите email!" },
-            { type: "email", message: "Пожалуйста, введите корректный email!" }
+            { type: "email", message: "Пожалуйста, введите корректный email!" },
           ]}
         >
           <Input prefix={<MailOutlined />} placeholder="Email" />
@@ -45,10 +60,7 @@ export default function RegisterPage() {
           name="password"
           rules={[{ required: true, message: "Пожалуйста, введите пароль!" }]}
         >
-          <Input.Password
-            prefix={<LockOutlined />}
-            placeholder="Пароль"
-          />
+          <Input.Password prefix={<LockOutlined />} placeholder="Пароль" />
         </Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit" style={{ width: "100%" }}>

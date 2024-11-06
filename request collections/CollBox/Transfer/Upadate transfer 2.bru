@@ -1,0 +1,25 @@
+meta {
+  name: Upadate transfer 2
+  type: http
+  seq: 3
+}
+
+patch {
+  url: http://localhost:8080/users/:userId/transfers/:transfId
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 2
+  transfId: 24
+}
+
+body:json {
+  {
+      "sourceAccountId": 6,
+      "destinationAccountId": 4,
+      "description": "Обновлние перевода с Сбер на Тинькофф!",
+      "amount": 100.00
+  }
+}

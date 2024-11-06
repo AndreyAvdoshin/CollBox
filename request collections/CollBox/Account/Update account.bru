@@ -1,0 +1,22 @@
+meta {
+  name: Update account
+  type: http
+  seq: 2
+}
+
+patch {
+  url: http://localhost:8080/account/:userId/:accId
+  body: json
+  auth: none
+}
+
+params:path {
+  userId: 2
+  accId: 6
+}
+
+body:json {
+  {
+      "balance": 20000
+  }
+}
