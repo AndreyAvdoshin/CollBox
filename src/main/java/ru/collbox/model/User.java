@@ -44,6 +44,12 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name  = "updated")
     private LocalDateTime updated;
 
+    @Column(name  = "last_date_authen")
+    private LocalDateTime lastDateAuthen;
+
+    @Column(name  = "is_activ")
+    private boolean isActiv = true;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));

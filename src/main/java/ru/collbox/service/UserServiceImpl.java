@@ -18,6 +18,8 @@ import ru.collbox.repository.UserRepository;
 import ru.collbox.utils.CookieUtils;
 import ru.collbox.utils.JwtService;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @Transactional(readOnly = true)
@@ -38,6 +40,7 @@ public class UserServiceImpl implements UserService {
         this.authManager = authManager;
     }
 
+    @Transactional
     @Override
     public void authenticate(AuthRequest request, HttpServletResponse response) {
         authManager.authenticate(
@@ -47,10 +50,16 @@ public class UserServiceImpl implements UserService {
                 )
         );
         User user = returnIfExists(request.getEmail());
-        HttpCookie cookie = CookieUtils.setJwtCookie(jwtService.generateToken(user));
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+
+        user.setLastDateAuthen(LocalDateTime.now());
+
+        user = repository.save(user);
 
         log.info("Аутентификация пользователя - {}", request);
+        log.info("Проверка поля последней даты авторизации user - {}", user);
+
+        HttpCookie cookie = CookieUtils.setJwtCookie(jwtService.generateToken(user));
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
 
         //return AuthResponse.builder().token(jwtService.generateToken(user)).build();
     }
@@ -60,6 +69,9 @@ public class UserServiceImpl implements UserService {
     public void createUser(UserDto userDto, HttpServletResponse response) {
         userDto.setPassword(encoder.encode(userDto.getPassword()));
         User user = mapper.toUser(userDto);
+
+        user.setActiv(true);
+        user.setLastDateAuthen(LocalDateTime.now());
 
         log.info("Создание пользователя - {}", user);
         user = repository.save(user);

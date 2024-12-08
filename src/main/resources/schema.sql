@@ -6,7 +6,9 @@ CREATE TABLE IF NOT EXISTS users (
     salary_day INTEGER DEFAULT NULL,
     role VARCHAR(255) NOT NULL,
     created TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    updated TIMESTAMP WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    last_date_authen TIMESTAMP WITHOUT TIME ZONE,
+    is_activ boolean
 );
 -- Подумать над тем, чтобы добавить поле активности и времени последнего логина пользователя
 
